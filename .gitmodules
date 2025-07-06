@@ -1,6 +1,3 @@
 [submodule "stack-distance"]
 	path = stack-distance
 	url = git@github.com:jcipar/stack-distance.git
-[submodule "caffeine"]
-	path = caffeine
-	url = git@github.com:ben-manes/caffeine.git
