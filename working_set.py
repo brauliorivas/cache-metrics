@@ -1,75 +1,77 @@
-import core
+from collections import deque
 import getopt
 import sys
 
-from collections import deque, Counter
+SEPARATOR = ", "
 
 
-def calculate_trace_size(file):
+def trace_size(file):
     items = {}
     with open(file) as f:
+        f.readline()
         for line in f:
-            id, size = line.strip().split(" ")
+            time_stamp, id, size = line.strip().split(SEPARATOR)
             size = int(size)
             items.setdefault(id, size)
     total_size = sum(items.values())
     return total_size
 
 
-def compute_size(sizes, counter):
-    total = 0
-    for id, size in sizes.items():
-        total += size * counter[id]
-    return total
-
-
-def perform_working_set(file, window_size):
-    working_sets = []
-    trace_size = calculate_trace_size(file)
-    window_size = int((trace_size * window_size) / 100)
+def working_set(input_file, window_size):
+    print("Calculating size")
+    trace_size_bytes = trace_size(input_file)
+    print(f"Trace size: {trace_size_bytes}b")
+    window_size_bytes = int((trace_size_bytes * window_size) / 100)
+    print(f"Window size: {window_size_bytes}b")
     window = deque()
     sizes = {}
-    counter = Counter()
-    with open(file) as f:
-        for line in f:
-            id, size = line.strip().split(" ")
+    ids = set()
+
+    output_file = f"{input_file.split("_clean")[0]}.working_set_{window_size}"
+
+    input_file = open(input_file)
+    output_file = open(output_file, "w")
+
+    input_file.readline()
+    output_file.write(f"# trace size: {trace_size_bytes}, window %: {window_size}, window size: {window_size_bytes}\n")
+    current_window_size = 0
+
+    for line in input_file:
+        time_stamp, id, size = line.strip().split(SEPARATOR)
+        if id not in ids:
+            window.append(id)
+            ids.add(id)
             size = int(size)
-            window.append((id, size))
-            sizes.setdefault(id, size)
-            counter[id] += 1
-            while compute_size(sizes, counter) > window_size:  # evict
-                old_id, old_size = window.popleft()
-                counter[old_id] -= 1
-                assert counter[old_id] >= 0
-                if counter[old_id] == 0:
-                    sizes.pop(old_id)
-            working_set = compute_size(sizes, counter)
-            working_sets.append(working_set)
-    summary = core.five_number_summary(working_sets)
-    with open("working_set_{}".format(file), "w") as working_set_file:
-        for k, v in summary.items():
-            working_set_file.write("{}: {}\n".format(k, int(v)))
-    print("Trace working set: {}\n\n".format(summary))
+            sizes[id] = size
+            current_window_size += size
+        while current_window_size > window_size_bytes:
+            old_id = window.popleft()
+            current_window_size -= sizes.get(old_id)
+            ids.remove(old_id)
+            del sizes[old_id]
+        working_set = len(ids)
+        output_file.write(f"{working_set}\n")
+
+    input_file.close()
+    output_file.close()
 
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "f:s:", ["file=", "size="])
+        opts, args = getopt.getopt(sys.argv[1:], "s:", ["size="])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(1)
 
-    file = ""
-    window_size = 0
+    window_size = 1
     for option, argument in opts:
-        if option in ("-f", "--file"):
-            file = argument
-        elif option in ("-s", "--size"):
+        if option in ("-s", "--size"):
             window_size = float(argument)
         else:
             print(f"{option} option not recognized\n")
 
-    perform_working_set(file, window_size)
+    for file in args:
+        working_set(file, window_size)
 
 
 if __name__ == "__main__":

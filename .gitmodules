@@ -1,0 +1,6 @@
+[submodule "libCacheSim"]
+	path = libCacheSim
+	url = git@github.com:1a1a11a/libCacheSim.git
+[submodule "stack-distance"]
+	path = stack-distance
+	url = git@github.com:jcipar/stack-distance.git
