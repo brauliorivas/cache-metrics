@@ -1,0 +1,12 @@
+# Ignore everything
+**
+
+!.gitignore
+!**/*.png
+!*/
+!**/README.md
+!**/README.txt
+!**/result/
+!**/stat
+!**/traceStat
+!**/result/**
