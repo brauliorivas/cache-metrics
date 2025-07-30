@@ -7,7 +7,7 @@ from vars import units, labels
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "f:n:m:u:", ["min=", "max=", "unit=", "datatype="])
+        opts, args = getopt.getopt(sys.argv[1:], "f:n:m:u:o", ["min=", "max=", "unit=", "datatype="])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(2)
@@ -16,6 +16,7 @@ def main():
     max = -1
     unit = ""
     datatype = ""
+    outliers = False
 
     for option, argument in opts:
         if option in ("-n", "--min"):
@@ -26,6 +27,8 @@ def main():
             unit = argument
         elif option in ("-t", "--datatype"):
             datatype = argument
+        elif option in ("-o"):
+            outliers = True
         else:
             print(f"{option} option not recognized\n")
 
@@ -58,7 +61,7 @@ def main():
 
         fig, ax = plt.subplots(figsize=(7, 4))
         ax.boxplot(
-            distances, vert=False, patch_artist=True,
+            distances, vert=False, patch_artist=True, showfliers=outliers,
             boxprops=dict(facecolor='skyblue', color='black', linewidth=1.5),
             medianprops=dict(color='red', linewidth=2),
             whiskerprops=dict(color='black', linewidth=1.5),

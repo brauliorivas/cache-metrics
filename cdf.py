@@ -30,6 +30,7 @@ def main():
         file_name = file
         output_image = f"{file_name}.cdf.png"
         file = open(file)
+        file.readline()
         normalizer = units.get(unit, 1)
         distances = list(map(lambda distance: int(distance.strip()) / normalizer, file.readlines()))
         distances = np.array(distances)

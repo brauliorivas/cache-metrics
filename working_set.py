@@ -1,6 +1,7 @@
 from collections import deque
 import getopt
 import sys
+from vars import units
 
 SEPARATOR = ", "
 
@@ -20,9 +21,10 @@ def trace_size(file):
 def working_set(input_file, window_size):
     print("Calculating size")
     trace_size_bytes = trace_size(input_file)
-    print(f"Trace size: {trace_size_bytes}b")
+    unit = "MiB"
+    print(f"Trace size: {trace_size_bytes / units.get(unit)} {unit}")
     window_size_bytes = int((trace_size_bytes * window_size) / 100)
-    print(f"Window size: {window_size_bytes}b")
+    print(f"Window size: {window_size_bytes / units.get(unit)} {unit}")
     window = deque()
     sizes = {}
     ids = set()
