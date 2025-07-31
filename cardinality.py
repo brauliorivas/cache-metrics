@@ -1,6 +1,7 @@
 import getopt
 import sys
 from HLL import HyperLogLog
+from vars import units
 
 SEPARATOR = ", "
 
@@ -27,7 +28,14 @@ def main():
             time_stamp, id, size = splitted
             hll.add(id)
 
-        output_file.write(f"HyperLogLog cardinality: {hll.cardinality()}")
+        cardinality = hll.cardinality()
+        output_file.write(f"HyperLogLog cardinality: {cardinality}")
+        unit = "K"
+        k = units.get(unit)
+        output_file.write(f"\n{cardinality / k}{unit}")
+        unit = "M"
+        m = units.get(unit)
+        output_file.write(f"\n{cardinality / m}{unit}")
 
 
 if __name__ == "__main__":
