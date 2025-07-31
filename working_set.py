@@ -22,9 +22,11 @@ def working_set(input_file, window_size):
     print("Calculating size")
     trace_size_bytes = trace_size(input_file)
     unit = "MiB"
-    print(f"Trace size: {trace_size_bytes / units.get(unit)} {unit}")
+    trace_size_unit = trace_size_bytes / units.get(unit)
+    print(f"Trace size: {trace_size_unit} {unit}")
     window_size_bytes = int((trace_size_bytes * window_size) / 100)
-    print(f"Window size: {window_size_bytes / units.get(unit)} {unit}")
+    window_size_unit = window_size_bytes / units.get(unit)
+    print(f"Window size: {window_size_unit} {unit}")
     window = deque()
     sizes = {}
     ids = set()
@@ -35,7 +37,7 @@ def working_set(input_file, window_size):
     output_file = open(output_file, "w")
 
     input_file.readline()
-    output_file.write(f"# trace size: {trace_size_bytes}, window %: {window_size}, window size: {window_size_bytes}\n")
+    output_file.write(f"# trace size: {trace_size_unit}, window %: {window_size}, window size: {window_size_unit}\n")
     current_window_size = 0
 
     for line in input_file:
