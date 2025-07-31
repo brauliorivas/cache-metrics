@@ -1,123 +1,113 @@
 import sys
 import getopt
-from typing import Callable, TextIO
 import mmh3
 
 FT = "csv"
 MAX = 0xffffffffffffffff
 
 
-def clean_file(files: list[str], records: int, process_file: Callable[[str, TextIO, int], None], verbose: bool, permuted: bool, sorted_trace: bool) -> None:
-    for original_file_name in files:
-        new_file_name = original_file_name
-        if "." in original_file_name:
-            new_file_name = original_file_name[:-4]
-        new_file_name = f"{new_file_name}_{'full' if records == -1 else records}_clean"
-        if permuted:
-            new_file_name = f"{new_file_name}_permuted"
-        new_file_name = f"{new_file_name}.{FT}"
-        with open(new_file_name, "w") as new_file:
-            process_file(original_file_name, new_file, records, permuted, sorted_trace)
+class Cleaner:
+    def __init__(self, records: int, sorted_trace: bool, shuffle: bool, verbose: bool):
+        self.records = records
+        self.sorted_trace = sorted_trace
+        self.shuffle = shuffle
+        self.old_time_stamp = 0
+        self.verbose = verbose
+
+    def hash_id(self, id: str):
+        return mmh3.hash64(id)[0] & MAX
+
+    def process_line(self, line: str):
+        pass
+
+    def clean_file(self, original_file_path: str):
+        new_file_path = original_file_path
+        if "." in original_file_path:
+            new_file_path = original_file_path[:-4]
+        if self.records == -1:
+            new_file_path = f"{new_file_path}_full"
+        else:
+            new_file_path = f"{new_file_path}_{self.records}"
+        new_file_path = f"{new_file_path}_clean"
+        if self.shuffle:
+            new_file_path = f"{new_file_path}_shuffled"
+        new_file_path = f"{new_file_path}.{FT}"
+
+        new_file = open(new_file_path, "w")
+        new_file.write("# time, object, size")
+
+        old_file = open(original_file_path, "r")
+        # TODO: shuffle lines
+        i = 0
+        for line in old_file:
+            new_line = self.process_line(line.strip())
+            if new_line is None:
+                continue
+            time_stamp, id, object_size = new_line
+            new_file.write(f"\n{time_stamp}, {id}, {object_size}")
+            i += 1
+            if i == self.records:
+                break
+        new_file.close()
+        old_file.close()
 
 
-def ibm_object_store(original_file: str, new_file: TextIO, records: int, permuted: bool, sorted_trace: bool) -> None:
-    i = 0
-    file = open(original_file, "r")
-    new_file.write("# time, object, size")
-    old_time_stamp = 0
-
-    for line in file:
-        splited_line = line.strip().split(" ")
+class IBMObjectStore(Cleaner):
+    def process_line(self, line: str):
+        splited_line = line.split(" ")
         time_stamp, request_type, id = splited_line[:3]
         if request_type != "REST.GET.OBJECT":
-            continue
+            return
         if len(splited_line) < 4:
-            continue
+            return
         object_size = splited_line[3]
         time_stamp = int(time_stamp)
-        if time_stamp < old_time_stamp and not sorted_trace:
-            continue
-        old_time_stamp = time_stamp
-        id_hash = mmh3.hash64(id)[0] & MAX
-        object_size = int(object_size)
-        new_file.write(f"\n{time_stamp}, {id_hash}, {object_size}")
-        i += 1
-        if i == records:
-            break
+        if time_stamp < self.old_time_stamp and not self.sorted_trace:
+            return
+        self.old_time_stamp = time_stamp
+        return time_stamp, self.hash_id(id), int(object_size)
 
 
-def memcached_twitter(original_file: str, new_file: TextIO, records: int, permuted: bool, sorted_trace: bool) -> None:
-    i = 0
-    file = open(original_file, "r")
-    new_file.write("# time, object, size")
-    old_time_stamp = 0
-    for line in file:
-        splited_line = line.strip().split(",")
-        time_stamp, anon_key, key_size, value_size, client_id, operation, ttl = splited_line
+class MemcachedTwitter(Cleaner):
+    def process_line(self, line: str):
+        splited_line = line.split(" ")
+        time_stamp, id, _, object_size, _, operation, _ = splited_line
         if operation != "get":
-            continue
+            return
         time_stamp = int(time_stamp)
-        if time_stamp < old_time_stamp and not sorted_trace:
-            continue
-        old_time_stamp = time_stamp
-        id_hash = mmh3.hash64(anon_key)[0] & MAX
-        value_size = int(value_size)
-        new_file.write(f"\n{time_stamp}, {id_hash}, {value_size}")
-        i += 1
-        if i == records:
-            break
-    file.close()
+        if time_stamp < self.old_time_stamp and not self.sorted_trace:
+            return
+        self.old_time_stamp = time_stamp
+        return time_stamp, self.hash_id(id), int(object_size)
 
 
-def wiki_upload(original_file: str, new_file: TextIO, records: int, permuted: bool, sorted_trace: bool) -> None:
-    i = 0
-    new_file.write("# time, object, size")
-    old_time_stamp = 0
-    file = open(original_file, "r")
-    file.readline()
-    for line in file:
-        splited_line = line.strip().split()
-        time_stamp, id, image_type, value_size, _ = splited_line
+class WikiUpload(Cleaner):
+    def process_line(self, line: str):
+        splited_line = line.split()
+        time_stamp, id, _, object_size, _ = splited_line
         time_stamp = int(time_stamp)
-        if time_stamp < old_time_stamp and not sorted_trace:
-            continue
-        old_time_stamp = time_stamp
-        id_hash = mmh3.hash64(id)[0] & MAX
-        value_size = int(value_size)
-        new_file.write(f"\n{time_stamp}, {id_hash}, {value_size}")
-        i += 1
-        if i == records:
-            break
-    file.close()
+        if time_stamp < self.old_time_stamp and not self.sorted_trace:
+            return
+        self.old_time_stamp = time_stamp
+        return time_stamp, self.hash_id(id), int(object_size)
 
 
-def wiki_text(original_file: str, new_file: TextIO, records: int, permuted: bool, sorted_trace: bool) -> None:
-    i = 0
-    new_file.write("# time, object, size")
-    old_time_stamp = 0
-    file = open(original_file, "r")
-    file.readline()
-    for line in file:
-        splited_line = line.strip().split()
-        time_stamp, id, value_size, _ = splited_line
+class WikiText(Cleaner):
+    def process_line(self, line: str):
+        splited_line = line.split()
+        time_stamp, id, object_size, _ = splited_line
         time_stamp = int(time_stamp)
-        if time_stamp < old_time_stamp and not sorted_trace:
-            continue
-        old_time_stamp = time_stamp
-        id_hash = mmh3.hash64(id)[0] & MAX
-        value_size = int(value_size)
-        new_file.write(f"\n{time_stamp}, {id_hash}, {value_size}")
-        i += 1
-        if i == records:
-            break
-    file.close()
+        if time_stamp < self.old_time_stamp and not self.sorted_trace:
+            return
+        self.old_time_stamp = time_stamp
+        return time_stamp, self.hash_id(id), int(object_size)
 
 
 trace_algorithms = {
-    "ibm_object_store": ibm_object_store,
-    "memcached_twitter": memcached_twitter,
-    "wiki_upload": wiki_upload,
-    "wiki_text": wiki_text,
+    "ibm_object_store": IBMObjectStore,
+    "memcached_twitter": MemcachedTwitter,
+    "wiki_upload": WikiUpload,
+    "wiki_text": WikiText,
 }
 
 
@@ -132,14 +122,14 @@ def main():
     records = -1
     verbose = False
     trace = ""
-    permuted = False
+    shuffled = False
     sorted_trace = False
 
     for option, argument in opts:
         if option == "-v":
             verbose = True
         elif option == "-p":
-            permuted = True
+            shuffled = True
         elif option in "-s":
             sorted_trace = True
         elif option in ("-t", "--trace"):
@@ -154,11 +144,14 @@ def main():
         else:
             print(f"{option} option not recognized")
 
-    fn = trace_algorithms.get(trace) or None
-    if fn is None:
+    cleaner = trace_algorithms.get(trace) or None
+    if cleaner is None:
         print("Can't handle this trace")
         sys.exit(2)
-    clean_file(args, records, fn, verbose, permuted, sorted_trace)
+
+    cleaner_instance: Cleaner = cleaner(records, sorted_trace, shuffled, verbose)
+    for file_path in args:
+        cleaner_instance.clean_file(file_path)
 
 
 if __name__ == '__main__':
