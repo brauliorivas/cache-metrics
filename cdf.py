@@ -35,6 +35,14 @@ def main():
         distances = list(map(lambda distance: int(distance.strip()) / normalizer, file.readlines()))
         distances = np.array(distances)
 
+        # remove outliers
+        q1 = np.percentile(distances, 25)
+        q3 = np.percentile(distances, 75)
+        iqr = q3 - q1
+        lower = q1 - 1.5 * iqr
+        upper = q3 + 1.5 * iqr
+        distances = distances[(distances >= lower) & (distances <= upper)]
+
         if min != -1:
             distances = distances[distances > min]
         if max != -1:
@@ -49,7 +57,9 @@ def main():
             img_labels = labels.get("distance")
 
         title = img_labels.get("title")
-        xlabel = f"{img_labels.get("xlabel")} {unit}"
+        xlabel = f"{img_labels.get("xlabel")}"
+        if unit != "":
+            xlabel = f"{xlabel} ({unit})"
 
         plt.figure(figsize=(8, 5))
         plt.step(values, cdf, where='post', color='steelblue', linewidth=2)
