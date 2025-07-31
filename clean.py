@@ -1,6 +1,7 @@
 import sys
 import getopt
 import mmh3
+import random
 
 FT = "csv"
 MAX = 0xffffffffffffffff
@@ -24,8 +25,10 @@ class Cleaner:
         new_file_path = original_file_path
         if "." in original_file_path:
             new_file_path = original_file_path[:-4]
+        full = False
         if self.records == -1:
             new_file_path = f"{new_file_path}_full"
+            full = True
         else:
             new_file_path = f"{new_file_path}_{self.records}"
         new_file_path = f"{new_file_path}_clean"
@@ -37,9 +40,15 @@ class Cleaner:
         new_file.write("# time, object, size")
 
         old_file = open(original_file_path, "r")
-        # TODO: shuffle lines
+        lines = old_file
+        if self.shuffle:
+            if full:
+                pass
+            else:
+                lines = old_file.readlines()
+                random.shuffle(lines)
         i = 0
-        for line in old_file:
+        for line in lines:
             new_line = self.process_line(line.strip())
             if new_line is None:
                 continue
