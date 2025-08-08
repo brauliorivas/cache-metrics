@@ -26,27 +26,35 @@ class Cleaner:
         if "." in original_file_path:
             new_file_path = original_file_path[:-4]
         full = False
+        if self.shuffle:
+            new_file_path = f"{new_file_path}_shuffled"
         if self.records == -1:
             new_file_path = f"{new_file_path}_full"
             full = True
         else:
             new_file_path = f"{new_file_path}_{self.records}"
         new_file_path = f"{new_file_path}_clean"
-        if self.shuffle:
-            new_file_path = f"{new_file_path}_shuffled"
         new_file_path = f"{new_file_path}.{FT}"
 
         new_file = open(new_file_path, "w")
         new_file.write("# time, object, size")
 
         old_file = open(original_file_path, "r")
-        lines = old_file
-        if self.shuffle:
-            if full:
-                pass
-            else:
-                lines = old_file.readlines()
-                random.shuffle(lines)
+        if self.shuffle and full:
+            return
+        elif self.shuffle and self.records > 0:
+            i = 0
+            lines = []
+            for line in old_file:
+                if not self.valid_line(line):
+                    continue
+                lines.append(line)
+                i += 1
+                if i == self.records:
+                    break
+            random.shuffle(lines)
+        else:
+            lines = old_file
         i = 0
         for line in lines:
             new_line = self.process_line(line.strip())
@@ -62,8 +70,19 @@ class Cleaner:
 
 
 class IBMObjectStore(Cleaner):
+    sep = " "
+
+    def valid_line(self, line: str):
+        splited_line = line.split(IBMObjectStore.sep)
+        time_stamp, request_type, id = splited_line[:3]
+        if request_type != "REST.GET.OBJECT":
+            return False
+        if len(splited_line) < 4:
+            return False
+        return True
+
     def process_line(self, line: str):
-        splited_line = line.split(" ")
+        splited_line = line.split(IBMObjectStore.sep)
         time_stamp, request_type, id = splited_line[:3]
         if request_type != "REST.GET.OBJECT":
             return
@@ -78,8 +97,15 @@ class IBMObjectStore(Cleaner):
 
 
 class MemcachedTwitter(Cleaner):
+    sep = ","
+
+    def valid_line(self, line: str):
+        splited_line = line.split(MemcachedTwitter.sep)
+        time_stamp, id, _, object_size, _, operation, _ = splited_line
+        return operation == "get"
+
     def process_line(self, line: str):
-        splited_line = line.split(" ")
+        splited_line = line.split(MemcachedTwitter.sep)
         time_stamp, id, _, object_size, _, operation, _ = splited_line
         if operation != "get":
             return
@@ -122,8 +148,8 @@ trace_algorithms = {
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hvr:t:ps", [
-                                   "help", "verbose", "records=", "trace=", "permuted", "sorted"])
+        opts, args = getopt.getopt(sys.argv[1:], "hvr:t:us", [
+                                   "help", "verbose", "records=", "trace=", "shuffle", "sorted"])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(2)
@@ -137,7 +163,7 @@ def main():
     for option, argument in opts:
         if option == "-v":
             verbose = True
-        elif option == "-p":
+        elif option in ("-u", "--shuffle"):
             shuffled = True
         elif option in "-s":
             sorted_trace = True
@@ -158,6 +184,7 @@ def main():
         print("Can't handle this trace")
         sys.exit(2)
 
+    random.seed(42)
     cleaner_instance: Cleaner = cleaner(records, sorted_trace, shuffled, verbose)
     for file_path in args:
         cleaner_instance.clean_file(file_path)
