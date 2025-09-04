@@ -1,6 +1,7 @@
 from collections import OrderedDict
 import getopt
 import sys
+import time
 from vars import units
 
 SEPARATOR = ", "
@@ -28,7 +29,7 @@ class LRUCache:
         self.cache[key] = None
         return key
 
-    def pop(self, key, value):
+    def pop(self, key):
         if key not in self.cache:
             return None
         self.cache.popitem(last=False)
@@ -44,6 +45,9 @@ def working_set(input_file, window_size):
     window_size_bytes = int((trace_size_bytes * window_size) / 100)
     window_size_mb = window_size_bytes / units.get(unit)
     print(f"Window size: {window_size_mb} {unit}")
+
+    time.sleep(3)
+
     window = LRUCache()
     sizes = {}
     ids = set()
@@ -62,8 +66,8 @@ def working_set(input_file, window_size):
     for line in input_file:
         time_stamp, id, size = line.strip().split(SEPARATOR)
         window.append(id)
-        ids.add(id)
         if id not in ids:
+            ids.add(id)
             size = int(size)
             sizes[id] = size
             current_window_size_bytes += size
