@@ -6,13 +6,7 @@ units = {
     "M": 1000 ** 2,
 }
 
-labels = {
-    "distance": {
-        "title": "Stack Distance",
-        "xlabel": "distances",
-    },
-    "working_set": {
-        "title": "Working Set",
-        "xlabel": "# elements",
-    }
-}
+STACK_DISTANCE = "stack_distance"
+STACK_DISTANCE_LABEL = "Stack Distance"
+WORKING_SET = "working_set"
+WORKING_SET_LABEL = "Working Set"

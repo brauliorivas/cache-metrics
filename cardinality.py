@@ -2,30 +2,37 @@ import getopt
 import sys
 from HLL import HyperLogLog
 from vars import units
+from clean import traces
 
 SEPARATOR = ", "
 
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "", [""])
+        opts, args = getopt.getopt(sys.argv[1:], "", ["trace="])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(2)
 
-    for file in args:
-        input_file = open(file)
-        output_file_name = f"{file.split("_clean")[0]}.cardinality"
+    trace = ""
+    for option, argument in opts:
+        if option in ("--trace"):
+            trace = argument
+
+    for file_path in args:
+        cleaner_class = traces.get(trace)
+        cleaner = cleaner_class(-1, True, False, False)
+        input_file = open(file_path)
+        output_file_name = f"{file_path.split("_clean")[0]}.cardinality"
         output_file = open(output_file_name, "w")
 
         input_file.readline()
         hll = HyperLogLog()
         for line in input_file:
-            splitted = line.strip().split(SEPARATOR)
-            if len(splitted) != 3:
-                print("No size for this entry. Check the trace\n")
+            new_line = cleaner.process_line(line.strip())
+            if new_line is None:
                 continue
-            time_stamp, id, size = splitted
+            _, id, _ = line.strip().split(SEPARATOR)
             hll.add(id)
 
         cardinality = hll.cardinality()

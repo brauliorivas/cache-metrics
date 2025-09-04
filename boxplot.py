@@ -2,12 +2,13 @@ import getopt
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from vars import units, labels
+from vars import units, STACK_DISTANCE, WORKING_SET, STACK_DISTANCE_LABEL, WORKING_SET_LABEL
 
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "f:n:m:u:o", ["min=", "max=", "unit=", "datatype="])
+        opts, args = getopt.getopt(sys.argv[1:], "f:n:m:u:o", [
+                                   "min=", "max=", "unit=", "datatype="])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(2)
@@ -32,44 +33,62 @@ def main():
         else:
             print(f"{option} option not recognized\n")
 
-    for file in args:
-        file_name = file
-        output_image = f"{file_name}.boxplot.png"
-        file = open(file)
-        normalizer = units.get(unit, 1)
-        if datatype == "working_set":
+    assert (datatype == WORKING_SET or datatype == STACK_DISTANCE)
+
+    for file_path in args:
+        trace_name = file_path.split("_")[0]
+        output_image = f"{file_path}.boxplot.png"
+        output_stats = f"{file_path}.stats"
+        file = open(file_path)
+
+        if datatype == WORKING_SET:
             file.readline()
-        distances = list(map(lambda distance: int(distance.strip()) / normalizer, file.readlines()))
-        distances = np.array(distances)
+        values = list(map(lambda value: int(value.strip()), file.readlines()))
+
+        normalizer = units.get(unit, 1)
+        if normalizer != 1:
+            values = list(map(lambda value: value / normalizer, values))
+        values = np.array(values)
 
         if min != -1:
-            distances = distances[distances > min]
+            values = values[values >= min]
         if max != -1:
-            distances = distances[distances < max]
+            values = values[values <= max]
 
-        if datatype == "working_set":
-            img_labels = labels.get("working_set")
-        elif datatype == "distance":
-            img_labels = labels.get("distance")
+        min = np.min(values)
+        q1 = np.percentile(values, 25)
+        median = np.median(values)
+        q3 = np.percentile(values, 75)
+        max = np.max(values)
 
-        title = img_labels.get("title")
-        xlabel = f"{img_labels.get("xlabel")} {unit}"
+        with open(output_stats, "w") as stats_file:
+            stats_file.write(f"min: {min}")
+            stats_file.write(f"q1: {q1}")
+            stats_file.write(f"median: {median}")
+            stats_file.write(f"q3: {q3}")
+            stats_file.write(f"max: {max}")
 
-        q1 = np.percentile(distances, 25)
-        median = np.median(distances)
-        q3 = np.percentile(distances, 75)
+        if datatype == STACK_DISTANCE:
+            title = STACK_DISTANCE_LABEL
+            xlabel = "Distances"
+            if unit:
+                xlabel = f"{xlabel} ({unit})"
+        elif datatype == WORKING_SET:
+            working_set_perc = file_path.split("working_set_")[1]
+            title = f"{WORKING_SET_LABEL} ({working_set_perc} %)"
+            xlabel = "Number of elements"
 
         fig, ax = plt.subplots(figsize=(7, 4))
         ax.boxplot(
-            distances, vert=False, patch_artist=True, showfliers=outliers,
+            values, vert=False, patch_artist=True, showfliers=outliers,
             boxprops=dict(facecolor='skyblue', color='black', linewidth=1.5),
             medianprops=dict(color='red', linewidth=2),
             whiskerprops=dict(color='black', linewidth=1.5),
             capprops=dict(color='black', linewidth=1.5),
             flierprops=dict(marker='o', color='black', alpha=0.5)
         )
-
-        ax.set_title(title, fontsize=14, weight='bold', pad=15)
+        fig.suptitle(title, fontsize=14, fontweight="bold")
+        ax.set_title(trace_name, fontsize=14, weight='bold', pad=15, color="gray")
         ax.set_xlabel(xlabel, fontsize=12)
         ax.grid(axis='x', linestyle='--', alpha=0.7)
 

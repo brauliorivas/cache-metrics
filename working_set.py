@@ -1,4 +1,4 @@
-from collections import deque
+from collections import OrderedDict
 import getopt
 import sys
 from vars import units
@@ -18,16 +18,33 @@ def trace_size(file):
     return total_size
 
 
+class LRUCache:
+    def __init__(self):
+        self.cache = OrderedDict()
+
+    def append(self, key):
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = None
+        return key
+
+    def pop(self, key, value):
+        if key not in self.cache:
+            return None
+        self.cache.popitem(last=False)
+        return key
+
+
 def working_set(input_file, window_size):
     print("Calculating size")
     trace_size_bytes = trace_size(input_file)
     unit = "MiB"
-    trace_size_unit = trace_size_bytes / units.get(unit)
-    print(f"Trace size: {trace_size_unit} {unit}")
+    trace_size_mb = trace_size_bytes / units.get(unit)
+    print(f"Trace size: {trace_size_mb} {unit}")
     window_size_bytes = int((trace_size_bytes * window_size) / 100)
-    window_size_unit = window_size_bytes / units.get(unit)
-    print(f"Window size: {window_size_unit} {unit}")
-    window = deque()
+    window_size_mb = window_size_bytes / units.get(unit)
+    print(f"Window size: {window_size_mb} {unit}")
+    window = LRUCache()
     sizes = {}
     ids = set()
 
@@ -37,21 +54,23 @@ def working_set(input_file, window_size):
     output_file = open(output_file, "w")
 
     input_file.readline()
-    output_file.write(f"# trace size: {trace_size_unit}, window %: {window_size}, window size: {window_size_unit}\n")
-    current_window_size = 0
+    output_file.write(f"# trace size: {trace_size_mb} {unit}, window %: {
+                      window_size}, window size: {window_size_mb} {unit}\n")
+
+    current_window_size_bytes = 0
 
     for line in input_file:
         time_stamp, id, size = line.strip().split(SEPARATOR)
+        window.append(id)
+        ids.add(id)
         if id not in ids:
-            window.append(id)
-            ids.add(id)
             size = int(size)
             sizes[id] = size
-            current_window_size += size
-        while current_window_size > window_size_bytes:
-            old_id = window.popleft()
-            current_window_size -= sizes.get(old_id)
+            current_window_size_bytes += size
+        while current_window_size_bytes > window_size_bytes:
+            old_id = window.pop(id)
             ids.remove(old_id)
+            current_window_size_bytes -= sizes.get(old_id)
             del sizes[old_id]
         working_set = len(ids)
         output_file.write(f"{working_set}\n")
