@@ -35,29 +35,33 @@ def main():
         trace_name = file_path.split("_")[0]
         output_image = f"{file_path}.cdf.png"
         file = open(file_path)
+
         if datatype == WORKING_SET:
             file.readline()
-        normalizer = units.get(unit, 1)
-        distances = list(map(lambda distance: int(distance.strip()) / normalizer, file.readlines()))
-        distances = np.array(distances)
+        values = list(map(lambda value: int(value.strip()), file.readlines()))
 
-        q1 = np.percentile(distances, 25)
-        q3 = np.percentile(distances, 75)
+        normalizer = units.get(unit, 1)
+        if normalizer != 1:
+            values = list(map(lambda value: value / normalizer, values))
+        values = np.array(values)
+
+        q1 = np.percentile(values, 25)
+        q3 = np.percentile(values, 75)
         iqr = q3 - q1
         lower = max(q1 - 1.5 * iqr, 0)
         upper = q3 + 1.5 * iqr
-        distances = distances[(distances >= lower) & (distances <= upper)]
+        values = values[(values >= lower) & (values <= upper)]
 
         if min_val != -1:
-            distances = distances[distances >= min_val]
-        if max != -1:
-            distances = distances[distances <= max_val]
+            values = values[values >= min_val]
+        if max_val != -1:
+            values = values[values <= max_val]
 
-        values, counts = np.unique(distances, return_counts=True)
+        values, counts = np.unique(values, return_counts=True)
         cdf = np.cumsum(counts) / counts.sum()
 
         if datatype == STACK_DISTANCE:
-            title = STACK_DISTANCE_LABEL 
+            title = STACK_DISTANCE_LABEL
             xlabel = "Distances"
             if unit:
                 xlabel = f"{xlabel} ({unit})"
