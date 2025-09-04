@@ -62,11 +62,11 @@ def main():
         max = np.max(values)
 
         with open(output_stats, "w") as stats_file:
-            stats_file.write(f"min: {min}\n")
-            stats_file.write(f"q1: {q1}\n")
-            stats_file.write(f"median: {median}\n")
-            stats_file.write(f"q3: {q3}\n")
-            stats_file.write(f"max: {max}\n")
+            stats_file.write(f"min: {min} {unit}\n")
+            stats_file.write(f"q1: {q1} {unit}\n")
+            stats_file.write(f"median: {median} {unit}\n")
+            stats_file.write(f"q3: {q3} {unit}\n")
+            stats_file.write(f"max: {max} {unit}\n")
 
         if datatype == STACK_DISTANCE:
             title = STACK_DISTANCE_LABEL

@@ -32,8 +32,8 @@ def main():
             new_line = cleaner.process_line(line.strip())
             if new_line is None:
                 continue
-            _, id, _ = line.strip().split(SEPARATOR)
-            hll.add(id)
+            _, id, _ = new_line
+            hll.add(str(id))
 
         cardinality = hll.cardinality()
         output_file.write(f"HyperLogLog cardinality: {cardinality}")
