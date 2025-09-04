@@ -1,0 +1,4 @@
+IBMObjectStoreTrace000Part0_shuffled_10000000_clean.csv LRU cache size     2GiB,           390423 req, miss ratio 0.8067, throughput 0.09 MQPS
+IBMObjectStoreTrace000Part0_shuffled_10000000_clean.csv LRU cache size    16GiB,           390423 req, miss ratio 0.4847, throughput 0.09 MQPS
+IBMObjectStoreTrace000Part0_shuffled_10000000_clean.csv LRU cache size    41GiB,           390423 req, miss ratio 0.2644, throughput 0.09 MQPS
+IBMObjectStoreTrace000Part0_shuffled_10000000_clean.csv LRU cache size    82GiB,           390423 req, miss ratio 0.1171, throughput 0.09 MQPS
