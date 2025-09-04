@@ -2,3 +2,7 @@ cluster52.000_10000000_clean.csv LRU cache size     3MiB,          9768392 req, 
 cluster52.000_10000000_clean.csv LRU cache size    31MiB,          9768392 req, miss ratio 0.2343, throughput 2.87 MQPS
 cluster52.000_10000000_clean.csv LRU cache size    78MiB,          9768392 req, miss ratio 0.1864, throughput 2.89 MQPS
 cluster52.000_10000000_clean.csv LRU cache size   156MiB,          9768392 req, miss ratio 0.1630, throughput 3.00 MQPS
+cluster52.000_10000000_clean.csv LRU cache size        3MiB, 9768393 req, miss ratio 0.4093, byte miss ratio 0.3513
+cluster52.000_10000000_clean.csv LRU cache size       31MiB, 9768393 req, miss ratio 0.2343, byte miss ratio 0.2009
+cluster52.000_10000000_clean.csv LRU cache size       78MiB, 9768393 req, miss ratio 0.1864, byte miss ratio 0.1612
+cluster52.000_10000000_clean.csv LRU cache size      156MiB, 9768393 req, miss ratio 0.1630, byte miss ratio 0.1421
