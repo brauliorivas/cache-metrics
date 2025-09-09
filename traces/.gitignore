@@ -11,3 +11,4 @@
 !**/traceStat
 !**/result/**
 !**/*.stats
+!**/*.cardinality
