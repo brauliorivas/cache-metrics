@@ -1,0 +1,4 @@
+cache-t-00_shuffled_full_clean.csv LRU cache size      623MiB, 9826681 req, miss ratio 0.8512, byte miss ratio 0.7951
+cache-t-00_shuffled_full_clean.csv LRU cache size     6231MiB, 9826681 req, miss ratio 0.5683, byte miss ratio 0.4508
+cache-t-00_shuffled_full_clean.csv LRU cache size    15578MiB, 9826681 req, miss ratio 0.4197, byte miss ratio 0.3102
+cache-t-00_shuffled_full_clean.csv LRU cache size    31157MiB, 9826681 req, miss ratio 0.3247, byte miss ratio 0.2337
