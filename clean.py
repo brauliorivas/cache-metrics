@@ -27,13 +27,17 @@ class Cleaner:
         if self.shuffle:
             new_file_path = f"{new_file_path}_shuffled"
 
-        new_file_path = f"{new_file_path}_{'full' if self.full else self.records}"
-        new_file_path = f"{new_file_path}_clean.{FT}"
+        prefix = new_file_path
+        n_elements = f"{'full' if self.full else self.records}"
+        suffix = f"clean.{FT}"
+        new_file_path = "_".join([prefix, n_elements, suffix])
 
         new_file = open(new_file_path, "w")
         new_file.write("# time, object, size")
 
         old_file = open(original_file_path, "r")
+        if isinstance(self, WikiText) or isinstance(self, WikiUpload):
+            old_file.readline()
 
         if self.shuffle:
             i = 0
@@ -64,6 +68,7 @@ class Cleaner:
                     break
         new_file.close()
         old_file.close()
+        os.rename(new_file_path, "_".join([prefix, str(i), suffix]))
 
 
 class IBMObjectStore(Cleaner):
