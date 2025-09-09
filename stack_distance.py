@@ -20,15 +20,14 @@ def main():
         else:
             print(f"{option} option not recognized\n")
 
-    process = subprocess.Popen(
-        [program, "--weight"],
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        text=True,
-        bufsize=1,
-    )
-
     for file in args:
+        process = subprocess.Popen(
+            [program, "--weight"],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            text=True,
+            bufsize=1,
+        )
         input_file = open(file)
         output_file_name = f"{file.split("_clean")[0]}.distance"
         output_file = open(output_file_name, "w")
