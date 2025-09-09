@@ -90,15 +90,16 @@ def main():
         print(err)
         sys.exit(1)
 
-    window_size = 1
+    window_sizes = [1]
     for option, argument in opts:
         if option in ("-s", "--size"):
-            window_size = float(argument)
+            window_sizes = map(float, argument.split(","))
         else:
             print(f"{option} option not recognized\n")
 
     for file in args:
-        working_set(file, window_size)
+        for window_size in window_sizes:
+            working_set(file, window_size)
 
 
 if __name__ == "__main__":
