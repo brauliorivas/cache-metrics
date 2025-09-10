@@ -1,0 +1,4 @@
+IBMObjectStoreTrace000Part0_962187_clean.csv LRU cache size        1GiB, 962187 req, miss ratio 0.3031, byte miss ratio 0.0703
+IBMObjectStoreTrace000Part0_962187_clean.csv LRU cache size       16GiB, 962187 req, miss ratio 0.1175, byte miss ratio 0.0455
+IBMObjectStoreTrace000Part0_962187_clean.csv LRU cache size       41GiB, 962187 req, miss ratio 0.0734, byte miss ratio 0.0378
+IBMObjectStoreTrace000Part0_962187_clean.csv LRU cache size       82GiB, 962187 req, miss ratio 0.0559, byte miss ratio 0.0330
