@@ -50,7 +50,6 @@ def working_set(input_file, window_size):
 
     window = LRUCache()
     sizes = {}
-    ids = set()
 
     output_file = f"{input_file.split("_clean")[0]}.working_set_{window_size}"
 
@@ -64,21 +63,18 @@ def working_set(input_file, window_size):
     current_window_size_bytes = 0
 
     for line in input_file:
-        time_stamp, id, size = line.strip().split(SEPARATOR)
+        _, id, size = line.strip().split(SEPARATOR)
         window.append(id)
-        if id not in ids:
-            ids.add(id)
+        if id not in sizes:
             size = int(size)
             sizes[id] = size
             current_window_size_bytes += size
         while current_window_size_bytes > window_size_bytes:
+            output_file.write(f"{len(sizes)}\n")
             old_id = window.pop(id)
-            ids.remove(old_id)
             current_window_size_bytes -= sizes.get(old_id)
             del sizes[old_id]
-        working_set = len(ids)
-        output_file.write(f"{working_set}\n")
-
+    output_file.write(f"{len(sizes)}\n")
     input_file.close()
     output_file.close()
 
