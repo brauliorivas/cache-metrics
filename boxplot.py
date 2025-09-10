@@ -13,17 +13,17 @@ def main():
         print(err)
         sys.exit(2)
 
-    min = -1
-    max = -1
+    min_val = -1
+    max_val = -1
     unit = ""
     datatype = ""
     outliers = False
 
     for option, argument in opts:
         if option in ("-n", "--min"):
-            min = int(argument)
+            min_val = int(argument)
         elif option in ("-m", "--max"):
-            max = int(argument)
+            max_val = int(argument)
         elif option in ("-u", "--unit"):
             unit = argument
         elif option in ("-t", "--datatype"):
@@ -50,10 +50,10 @@ def main():
             values = list(map(lambda value: value / normalizer, values))
         values = np.array(values)
 
-        if min != -1:
-            values = values[values >= min]
-        if max != -1:
-            values = values[values <= max]
+        if min_val != -1:
+            values = values[values >= min_val]
+        if max_val != -1:
+            values = values[values <= max_val]
 
         min = np.min(values)
         q1 = np.percentile(values, 25)
