@@ -39,7 +39,7 @@ class Cleaner:
         new_file.write("# time, object, size")
 
         old_file = open(original_file_path, "r")
-        if isinstance(self, WikiText) or isinstance(self, WikiUpload):
+        if isinstance(self, WikiText) or isinstance(self, WikiUpload) or isinstance(self, MetaCDN):
             old_file.readline()
 
         if self.shuffle:
@@ -127,18 +127,29 @@ class WikiText(Cleaner):
         return time_stamp, self.hash_id(id), int(object_size)
 
 
+class MetaCDN(Cleaner):
+    sep = ","
+
+    def process_line(self, line: str):
+        splited_line = line.split(MetaCDN.sep)
+        time_stamp, id, object_size, _ = splited_line
+        time_stamp = int(time_stamp)
+        return time_stamp, self.hash_id(id), int(object_size)
+
+
 traces = {
     "ibm_object_store": IBMObjectStore,
     "memcached_twitter": MemcachedTwitter,
     "wiki_upload": WikiUpload,
     "wiki_text": WikiText,
+    "metaCDN": MetaCDN,
 }
 
 
 def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hvr:t:", [
-                                   "help", "verbose", "records=", "trace=", "shuffle", "sorted", "remove_ext"])
+                                   "help", "verbose", "records=", "trace=", "shuffle", "sorted", "remove-ext"])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(2)
@@ -159,7 +170,7 @@ def main():
             sorted_trace = True
         elif option in ("-t", "--trace"):
             trace = argument
-        elif option in ("--remove_ext"):
+        elif option in ("--remove-ext"):
             remove_ext = True
         elif option in ("-r", "--records"):
             try:
