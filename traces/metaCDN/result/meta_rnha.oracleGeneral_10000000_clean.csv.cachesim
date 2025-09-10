@@ -1,0 +1,4 @@
+meta_rnha.oracleGeneral_10000000_clean.csv LRU cache size      715GiB, 10000000 req, miss ratio 0.6126, byte miss ratio 0.2786
+meta_rnha.oracleGeneral_10000000_clean.csv LRU cache size     7156GiB, 10000000 req, miss ratio 0.5481, byte miss ratio 0.2553
+meta_rnha.oracleGeneral_10000000_clean.csv LRU cache size    17891GiB, 10000000 req, miss ratio 0.5174, byte miss ratio 0.2417
+meta_rnha.oracleGeneral_10000000_clean.csv LRU cache size    35782GiB, 10000000 req, miss ratio 0.4950, byte miss ratio 0.2277
