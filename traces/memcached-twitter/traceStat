@@ -1,6 +1,6 @@
-dat: cluster52.000_shuffled_10000000_clean.csv
+dat: cluster52.000_10000000_clean.csv
 number of requests: 10000000, number of objects: 1523812
-number of req GiB: 2.3263, number of obj GiB: 0.3111
+number of req GiB: 2.3263, number of obj GiB: 0.3110
 compulsory miss ratio (req/byte): 0.1524/0.1337
 object size weighted by req/obj: 249/219
 frequency mean: 6.5625
@@ -12,9 +12,9 @@ X-hit (number of obj accessed X times): 868574(0.5700), 314404(0.2063), 97546(0.
 freq (fraction) of the most popular obj: 77355(0.0077), 54721(0.0055), 53178(0.0053), 40363(0.0040), 37412(0.0037), 36115(0.0036), 34224(0.0034), 31009(0.0031), 
 
 
-dat: cluster52.000_10000000_clean.csv
+dat: cluster52.000_shuffled_10000000_clean.csv
 number of requests: 10000000, number of objects: 1523812
-number of req GiB: 2.3263, number of obj GiB: 0.3110
+number of req GiB: 2.3263, number of obj GiB: 0.3111
 compulsory miss ratio (req/byte): 0.1524/0.1337
 object size weighted by req/obj: 249/219
 frequency mean: 6.5625
