@@ -70,11 +70,10 @@ def working_set(input_file, window_size):
             sizes[id] = size
             current_window_size_bytes += size
         while current_window_size_bytes > window_size_bytes:
-            output_file.write(f"{len(sizes)}\n")
             old_id = window.pop(id)
             current_window_size_bytes -= sizes.get(old_id)
             del sizes[old_id]
-    output_file.write(f"{len(sizes)}\n")
+        output_file.write(f"{len(sizes)}\n")
     input_file.close()
     output_file.close()
 
