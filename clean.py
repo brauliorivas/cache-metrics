@@ -42,10 +42,12 @@ class Cleaner:
         if isinstance(self, WikiText) or isinstance(self, WikiUpload) or isinstance(self, MetaCDN):
             old_file.readline()
 
+        k = 0
         if self.shuffle:
             i = 0
             lines = []
             for line in old_file:
+                k += 1
                 new_line = self.process_line(line.strip())
                 if new_line is None:
                     continue
@@ -64,6 +66,7 @@ class Cleaner:
             i = 0
             j = 0
             for line in old_file:
+                k += 1
                 new_line = self.process_line(line.strip())
                 if new_line is None:
                     continue
@@ -79,6 +82,7 @@ class Cleaner:
                 if i == self.records:
                     break
             print(f"There are {j} requests not sorted")
+        print(f"First {k} lines were read")
         new_file.close()
         old_file.close()
         os.rename(new_file_path, "_".join([prefix, str(i), suffix]))
