@@ -49,6 +49,9 @@ class Cleaner:
                 new_line = self.process_line(line.strip())
                 if new_line is None:
                     continue
+                _, _, object_size = new_line
+                if object_size == 0:
+                    continue
                 lines.append(new_line)
                 i += 1
                 if i == self.records:
@@ -65,6 +68,8 @@ class Cleaner:
                 if new_line is None:
                     continue
                 time_stamp, id, object_size = new_line
+                if object_size == 0:
+                    continue
                 if not self.sorted_trace and time_stamp < self.old_time_stamp:
                     j += 1
                     continue
