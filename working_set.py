@@ -9,12 +9,18 @@ SEPARATOR = ", "
 
 def trace_size(file):
     items = {}
+    k = 0
     with open(file) as f:
         f.readline()
         for line in f:
             time_stamp, id, size = line.strip().split(SEPARATOR)
             size = int(size)
+            if id in items:
+                old_size = items.get(id)
+                if old_size != size:
+                    k += 1
             items.setdefault(id, size)
+    print(f"{k} objects were found with different size")
     total_size = sum(items.values())
     return total_size
 
@@ -36,9 +42,7 @@ class LRUCache:
         return key
 
 
-def working_set(input_file, window_size):
-    print("Calculating size")
-    trace_size_bytes = trace_size(input_file)
+def working_set(input_file, trace_size_bytes, window_size):
     unit = "MiB"
     trace_size_mb = trace_size_bytes / units.get(unit)
     print(f"Trace size: {trace_size_mb} {unit}")
@@ -93,8 +97,10 @@ def main():
             print(f"{option} option not recognized\n")
 
     for file in args:
+        print("Calculating size")
+        trace_size_bytes = trace_size(file)
         for window_size in window_sizes:
-            working_set(file, window_size)
+            working_set(file, trace_size_bytes, window_size)
 
 
 if __name__ == "__main__":
