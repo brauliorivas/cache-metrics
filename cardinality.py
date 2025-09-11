@@ -21,7 +21,7 @@ def main():
 
     for file_path in args:
         cleaner_class = traces.get(trace)
-        cleaner = cleaner_class(-1, True, False, False)
+        cleaner = cleaner_class(-1, False, False)
         input_file = open(file_path)
         output_file_name = f"{file_path.split("_clean")[0]}.cardinality"
         output_file = open(output_file_name, "w")
