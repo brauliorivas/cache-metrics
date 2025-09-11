@@ -1,4 +1,4 @@
-cluster52.000_shuffled_10000000_clean.csv LRU cache size        3MiB, 10000000 req, miss ratio 0.5634, byte miss ratio 0.5257
-cluster52.000_shuffled_10000000_clean.csv LRU cache size       31MiB, 10000000 req, miss ratio 0.3176, byte miss ratio 0.2864
-cluster52.000_shuffled_10000000_clean.csv LRU cache size       79MiB, 10000000 req, miss ratio 0.2324, byte miss ratio 0.2077
-cluster52.000_shuffled_10000000_clean.csv LRU cache size      159MiB, 10000000 req, miss ratio 0.1806, byte miss ratio 0.1601
+cluster52.000_shuffled_10000000_clean.csv LRU cache size        3MiB, 10000000 req, miss ratio 0.5602, byte miss ratio 0.5239
+cluster52.000_shuffled_10000000_clean.csv LRU cache size       31MiB, 10000000 req, miss ratio 0.3154, byte miss ratio 0.2861
+cluster52.000_shuffled_10000000_clean.csv LRU cache size       78MiB, 10000000 req, miss ratio 0.2303, byte miss ratio 0.2072
+cluster52.000_shuffled_10000000_clean.csv LRU cache size      157MiB, 10000000 req, miss ratio 0.1784, byte miss ratio 0.1592
