@@ -93,6 +93,9 @@ class Cleaner:
         print(f"There are {j} requests not sorted")
         print(f"First {k} lines were read")
 
+        for obj in ignored_objects:
+            del count[obj]
+
         assert sum(count.values()) == i
 
         trace = [obj for obj in trace if obj not in ignored_objects]
