@@ -10,10 +10,9 @@ MAX = 0xffffffffffffffff
 
 
 class Cleaner:
-    def __init__(self, records: int, sorted_trace: bool, shuffle: bool, verbose: bool):
+    def __init__(self, records: int, shuffle: bool, verbose: bool):
         self.records = records
         self.full = records == -1
-        self.sorted_trace = sorted_trace
         self.shuffle = shuffle
         self.old_time_stamp = 0
         self.verbose = verbose
@@ -64,8 +63,7 @@ class Cleaner:
         ignored_objects = set()
         count = Counter()
 
-        while i != self.records:
-            line = old_file.readline()
+        for line in old_file:
             k += 1
             new_line = self.process_line(line.strip())
             if new_line is None:
@@ -89,6 +87,8 @@ class Cleaner:
                 trace.append(id)
                 count[id] += 1
                 i += 1
+                if i == self.records:
+                    break
 
         print(f"There are {j} requests not sorted")
         print(f"First {k} lines were read")
@@ -193,7 +193,7 @@ traces = {
 def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hvr:t:", [
-                                   "help", "verbose", "records=", "trace=", "shuffle", "sorted", "remove-ext"])
+                                   "help", "verbose", "records=", "trace=", "shuffle", "remove-ext"])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(2)
@@ -202,7 +202,6 @@ def main():
     verbose = False
     trace = ""
     shuffled = False
-    sorted_trace = False
     remove_ext = False
 
     for option, argument in opts:
@@ -210,8 +209,6 @@ def main():
             verbose = True
         elif option in ("-u", "--shuffle"):
             shuffled = True
-        elif option in ("-s", "--sorted"):
-            sorted_trace = True
         elif option in ("-t", "--trace"):
             trace = argument
         elif option in ("--remove-ext"):
@@ -232,7 +229,7 @@ def main():
         sys.exit(2)
 
     random.seed(42)
-    cleaner_instance: Cleaner = cleaner(records, sorted_trace, shuffled, verbose)
+    cleaner_instance: Cleaner = cleaner(records, shuffled, verbose)
     for file_path in args:
         cleaner_instance.clean_file(file_path, remove_ext)
 
