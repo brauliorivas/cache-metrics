@@ -1,4 +1,4 @@
-meta_rnha.oracleGeneral_shuffled_10000000_clean.csv LRU cache size      515GiB, 10000000 req, miss ratio 0.8896, byte miss ratio 0.8295
-meta_rnha.oracleGeneral_shuffled_10000000_clean.csv LRU cache size     5154GiB, 10000000 req, miss ratio 0.7463, byte miss ratio 0.4640
-meta_rnha.oracleGeneral_shuffled_10000000_clean.csv LRU cache size    12885GiB, 10000000 req, miss ratio 0.6411, byte miss ratio 0.2764
-meta_rnha.oracleGeneral_shuffled_10000000_clean.csv LRU cache size    25771GiB, 10000000 req, miss ratio 0.5499, byte miss ratio 0.2012
+meta_rnha.oracleGeneral_shuffled_10000000_clean.csv LRU cache size      269GiB, 10000000 req, miss ratio 0.8620, byte miss ratio 0.5765
+meta_rnha.oracleGeneral_shuffled_10000000_clean.csv LRU cache size     2697GiB, 10000000 req, miss ratio 0.6766, byte miss ratio 0.3394
+meta_rnha.oracleGeneral_shuffled_10000000_clean.csv LRU cache size     6744GiB, 10000000 req, miss ratio 0.5843, byte miss ratio 0.2923
+meta_rnha.oracleGeneral_shuffled_10000000_clean.csv LRU cache size    13488GiB, 10000000 req, miss ratio 0.5186, byte miss ratio 0.2703
