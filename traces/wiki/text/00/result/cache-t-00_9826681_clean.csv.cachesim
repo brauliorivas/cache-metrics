@@ -1,4 +1,4 @@
-cache-t-00_9826681_clean.csv LRU cache size      622MiB, 9826681 req, miss ratio 0.7982, byte miss ratio 0.7419
-cache-t-00_9826681_clean.csv LRU cache size     6221MiB, 9826681 req, miss ratio 0.5249, byte miss ratio 0.4158
-cache-t-00_9826681_clean.csv LRU cache size    15553MiB, 9826681 req, miss ratio 0.3950, byte miss ratio 0.2928
-cache-t-00_9826681_clean.csv LRU cache size    31106MiB, 9826681 req, miss ratio 0.3171, byte miss ratio 0.2286
+cache-t-00_9826681_clean.csv LRU cache size      604MiB, 9826681 req, miss ratio 0.7949, byte miss ratio 0.7707
+cache-t-00_9826681_clean.csv LRU cache size     6044MiB, 9826681 req, miss ratio 0.5212, byte miss ratio 0.4362
+cache-t-00_9826681_clean.csv LRU cache size    15111MiB, 9826681 req, miss ratio 0.3923, byte miss ratio 0.3092
+cache-t-00_9826681_clean.csv LRU cache size    30222MiB, 9826681 req, miss ratio 0.3158, byte miss ratio 0.2446

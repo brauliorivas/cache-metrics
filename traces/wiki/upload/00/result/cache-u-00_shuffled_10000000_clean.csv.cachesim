@@ -1,4 +1,4 @@
-cache-u-00_shuffled_10000000_clean.csv LRU cache size        2GiB, 10000000 req, miss ratio 0.7907, byte miss ratio 0.9040
-cache-u-00_shuffled_10000000_clean.csv LRU cache size       20GiB, 10000000 req, miss ratio 0.5431, byte miss ratio 0.7328
-cache-u-00_shuffled_10000000_clean.csv LRU cache size       51GiB, 10000000 req, miss ratio 0.4167, byte miss ratio 0.6248
-cache-u-00_shuffled_10000000_clean.csv LRU cache size      102GiB, 10000000 req, miss ratio 0.3385, byte miss ratio 0.5469
+cache-u-00_shuffled_10000000_clean.csv LRU cache size        2GiB, 10000000 req, miss ratio 0.7937, byte miss ratio 0.9370
+cache-u-00_shuffled_10000000_clean.csv LRU cache size       20GiB, 10000000 req, miss ratio 0.5454, byte miss ratio 0.7646
+cache-u-00_shuffled_10000000_clean.csv LRU cache size       51GiB, 10000000 req, miss ratio 0.4185, byte miss ratio 0.6541
+cache-u-00_shuffled_10000000_clean.csv LRU cache size      103GiB, 10000000 req, miss ratio 0.3401, byte miss ratio 0.5725
