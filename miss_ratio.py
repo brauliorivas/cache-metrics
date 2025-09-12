@@ -18,14 +18,6 @@ def get_miss_ratios(file):
     return miss_ratios
 
 
-cache_size_index = {
-    "0.01": 0,
-    "0.10": 1,
-    "0.25": 2,
-    "0.50": 3,
-}
-
-
 def miss_ratio_delta(i, sorted, shuffled, index):
     return shuffled[i][index] - sorted[i][index]
 
@@ -44,6 +36,13 @@ def miss_ratio_average(files):
 
     sorted_traces_miss_ratios = [get_miss_ratios(file) for file in sorted_traces]
     shuffled_traces_miss_ratios = [get_miss_ratios(file) for file in shuffled_traces]
+
+    cache_size_index = {
+        "0.01": 0,
+        "0.10": 1,
+        "0.25": 2,
+        "0.50": 3,
+    }
 
     deltas = defaultdict(list)
     for i in range(len(sorted_traces)):
