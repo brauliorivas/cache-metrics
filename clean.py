@@ -21,17 +21,10 @@ class Cleaner:
     def hash_id(self, id: str):
         return mmh3.hash64(id)[0] & MAX
 
-    def filter_file_lines(self, line):
-        new_line = self.process_line(line.strip())
-        if new_line is None:
-            return False
-        time_stamp, id, object_size = new_line
-        if time_stamp < self.old_time_stamp:
-            self.j += 1
-            return False
-        else:
-            self.old_time_stamp = time_stamp
-        return True
+    def add_hashed_id(self, original_id):
+        hashed_id = self.hash_id(original_id)
+        self.hashes[hashed_id].add(original_id)
+        return hashed_id
 
     def clean_file(self, original_file_path: str, remove_ext: bool):
         if remove_ext:
@@ -119,11 +112,6 @@ class Cleaner:
         new_file.close()
         old_file.close()
         os.rename(new_file_path, "_".join([prefix, str(i), suffix]))
-
-    def add_hashed_id(self, original_id):
-        hashed_id = self.hash_id(original_id)
-        self.hashes[hashed_id].add(original_id)
-        return hashed_id
 
 
 class IBMObjectStore(Cleaner):
