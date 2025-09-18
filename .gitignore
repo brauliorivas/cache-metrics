@@ -2,3 +2,4 @@ cache
 __pycache__/
 **/*.gz
 test*
+.ipynb_checkpoints/
