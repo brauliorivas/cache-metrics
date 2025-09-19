@@ -1,0 +1,11 @@
+Trace: traces/ibm-object-store/IBMObjectStoreTrace000Part0_962187_clean.csv Cardinality: 51540 51.54K 0.05154M
+ Trace: traces/ibm-object-store/IBMObjectStoreTrace000Part0_shuffled_962187_clean.csv Cardinality: 51540 51.54K 0.05154M
+ Trace: traces/memcached-twitter/cluster52.000_10000000_clean.csv Cardinality: 1502916 1502.916K 1.502916M
+ Trace: traces/memcached-twitter/cluster52.000_shuffled_10000000_clean.csv Cardinality: 1502916 1502.916K 1.502916M
+ Trace: traces/metaCDN/meta_rnha.oracleGeneral_10000000_clean.csv Cardinality: 4821057 4821.057K 4.821057M
+ Trace: traces/metaCDN/meta_rnha.oracleGeneral_shuffled_10000000_clean.csv Cardinality: 4821057 4821.057K 4.821057M
+ Trace: traces/wiki/text/00/cache-t-00_9826681_clean.csv Cardinality: 2768652 2768.652K 2.768652M
+ Trace: traces/wiki/text/00/cache-t-00_shuffled_9826681_clean.csv Cardinality: 2768652 2768.652K 2.768652M
+ Trace: traces/wiki/upload/00/cache-u-00_10000000_clean.csv Cardinality: 3062343 3062.343K 3.062343M
+ Trace: traces/wiki/upload/00/cache-u-00_shuffled_10000000_clean.csv Cardinality: 3062343 3062.343K 3.062343M
+ 
