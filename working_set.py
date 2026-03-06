@@ -7,7 +7,7 @@ from vars import units
 SEPARATOR = ", "
 
 
-def trace_size(file):
+def byte_trace_size(file):
     items = {}
     k = 0
     with open(file) as f:
@@ -25,6 +25,16 @@ def trace_size(file):
     return total_size
 
 
+def trace_size(file):
+    s = set()
+    with open(file) as f:
+        f.readline()
+        for line in f:
+            _, id, _ = line.strip().split(SEPARATOR)
+            s.add(id)
+    return len(s)
+
+
 class LRUCache:
     def __init__(self):
         self.cache = OrderedDict()
@@ -35,14 +45,11 @@ class LRUCache:
         self.cache[key] = None
         return key
 
-    def pop(self, key):
-        if key not in self.cache:
-            return None
+    def pop(self):
         self.cache.popitem(last=False)
-        return key
 
 
-def working_set(input_file, trace_size_bytes, window_size):
+def byte_working_set(input_file, trace_size_bytes, window_size):
     unit = "MiB"
     trace_size_mb = trace_size_bytes / units.get(unit)
     print(f"Trace size: {trace_size_mb} {unit}")
@@ -52,10 +59,9 @@ def working_set(input_file, trace_size_bytes, window_size):
 
     time.sleep(3)
 
-    window = LRUCache()
-    sizes = {}
+    cache = OrderedDict()
 
-    output_file = f"{input_file.split("_clean")[0]}.working_set_{window_size}"
+    output_file = f"{input_file.split("_clean")[0]}.bytes_working_set_{window_size}"
 
     input_file = open(input_file)
     output_file = open(output_file, "w")
@@ -68,39 +74,81 @@ def working_set(input_file, trace_size_bytes, window_size):
 
     for line in input_file:
         _, id, size = line.strip().split(SEPARATOR)
-        window.append(id)
-        if id not in sizes:
+        if id in cache:
+            cache.move_to_end(id)
+        else:
             size = int(size)
-            sizes[id] = size
+            cache[id] = size
             current_window_size_bytes += size
         while current_window_size_bytes > window_size_bytes:
-            old_id = window.pop(id)
-            current_window_size_bytes -= sizes.get(old_id)
-            del sizes[old_id]
-        output_file.write(f"{len(sizes)}\n")
+            id, size = cache.popitem(last=False)
+            current_window_size_bytes -= size
+        output_file.write(f"{len(cache)}\n")
+    input_file.close()
+    output_file.close()
+
+
+def working_set(input_file, trace_size, window_size):
+    print(f"Trace size: {trace_size} (elements)")
+    perc_window_size = window_size
+    window_size = int((trace_size * perc_window_size) / 100)
+    print(f"Window size: {window_size} (elements)")
+
+    time.sleep(3)
+
+    cache = OrderedDict()
+
+    output_file = f"{input_file.split("_clean")[0]}.elements_working_set_{perc_window_size}"
+
+    input_file = open(input_file)
+    output_file = open(output_file, "w")
+
+    input_file.readline()
+    output_file.write(f"# trace size: {trace_size}, window %: {
+                      window_size}, window size: {window_size}\n")
+
+    for line in input_file:
+        _, id, _ = line.strip().split(SEPARATOR)
+        if id in cache:
+            cache.move_to_end(id)
+        else:
+            cache[id] = None
+        while len(cache) > window_size:
+            id, _ = cache.popitem(last=False)
+        output_file.write(f"{len(cache)}\n")
     input_file.close()
     output_file.close()
 
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "s:", ["size="])
+        opts, args = getopt.getopt(sys.argv[1:], "s:b", ["size=", "bytes"])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(1)
 
     window_sizes = [1]
+    byte_size = False
     for option, argument in opts:
         if option in ("-s", "--size"):
             window_sizes = map(float, argument.split(","))
+        elif option in ("-b", "--bytes"):
+            byte_size = True
         else:
             print(f"{option} option not recognized\n")
 
-    for file in args:
-        print("Calculating size")
-        trace_size_bytes = trace_size(file)
-        for window_size in window_sizes:
-            working_set(file, trace_size_bytes, window_size)
+    if byte_size:
+        for file in args:
+            print("Calculating size (in bytes)")
+            trace_size_bytes = byte_trace_size(file)
+            for window_size in window_sizes:
+                byte_working_set(file, trace_size_bytes, window_size)
+    else:
+        for file in args:
+            print("Calculating size (cardinality)")
+            trace_size_bytes = trace_size(file)
+            for window_size in window_sizes:
+                working_set(file, trace_size_bytes, window_size)
 
 
 if __name__ == "__main__":
