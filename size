@@ -1,0 +1,2 @@
+ 3534  python size.py ../../../traces/memcached-twitter/cluster52.000_clean.csv.size
+ 3653  python size.py ../../../traces/metaCDN/meta_rnha.oracleGeneral.zst.size
