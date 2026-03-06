@@ -1,0 +1,88 @@
+ 3378  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000.zst --reuse 
+ 3379  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000.zst zst --reuse 
+ 3380  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000.zst csv --reuse 
+ 3385  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000.zst csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=, --reuse 
+ 3386  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000.zst text --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=, --reuse 
+ 3387  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000.zst text --reuse 
+ 3388  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000.zst --reuse
+ 3389  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000 text --reuse -v
+ 3390  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000 -v text --reuse
+ 3391  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000 text --reuse
+ 3394  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=, --reuse 
+ 3396  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=, --reuse -v
+ 3397  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=, -v --reuse
+ 3399  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000.csv csv -v --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=, --reuse
+ 3400  ./traceAnalyzer ~/code/cache-metrics/traces/memcached-twitter/cluster52.000.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=, --reuse
+ 3405  ./traceAnalyzer ../../data/twitter_cluster52_10m.csv csv --reuse
+ 3407  ./traceAnalyzer ../../data/twitter_cluster52_10m.csv csv --reuse --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,
+ 3408  ./traceAnalyzer ../../data/twitter_cluster52_10m.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=, --reuse
+ 3418  ./traceAnalyzer ../../data/twitter_cluster52_10m.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --reuse
+ 3427  ./traceAnalyzer ../../../traces/memcached-twitter/cluster52.000_clean.csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1
+ 3430  ./traceAnalyzer ../../../traces/memcached-twitter/cluster52.000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --reuse --verbose
+ 3431  ./traceAnalyzer  --vbrbose ../../../traces/memcached-twitter/cluster52.000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --reuse
+ 3432  ./traceAnalyzer --verbose ../../../traces/memcached-twitter/cluster52.000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --reuse
+ 3439  ./traceAnalyzer ../../../traces/memcached-twitter/cluster52.000_clean.csv csv --trace-type-params=obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --reuse
+ 3449  ./traceAnalyzer ../../../traces/memcached-twitter/cluster52.000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --reuse
+ 3526  traceAnalyzer cluster52.000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --reuse
+ 3532  traceAnalyzer cluster52.000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --common
+ 3559  traceAnalyzer cluster52.000_10000000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --common
+ 3610  traceAnalyzer cache-t-00_full_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --common
+ 3642  traceAnalyzer meta_rnha.oracleGeneral.zst oracleGeneral --common
+ 3690  traceAnalyzer ../ibm-object-store/IBMObjectStoreTrace000P_10000000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --common
+ 3692  traceAnalyzer IBMObjectStoreTrace000P_10000000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --common
+ 4702  traceAnalyzer
+ 4703  traceAnalyzer IBMObjectStoreTrace000Part0_10000000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --common
+ 4710  traceAnalyzer IBMObjectStoreTrace000Part0_10000000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 --stat
+ 4711  traceAnalyzer IBMObjectStoreTrace000Part0_10000000_clean.csv csv --stat --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 4712  traceAnalyzer --help
+ 4713  traceAnalyzer --usage
+ 4714  traceAnalyzer --help
+ 4716  traceAnalyzer IBMObjectStoreTrace000Part0_10000000_clean.csv csv --reuse --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 4719  traceAnalyzer IBMObjectStoreTrace000Part0_10000000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 4720  traceAnalyzer IBMObjectStoreTrace000Part0_shuffled_10000000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 4721  traceAnalyzer IBMObjectStoreTrace000Part0_10000000_clean.csv csv --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 4793  traceAnalyzer IBMObjectStoreTrace000Part0_10000000_clean.csv csv --popularity --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 4794  traceAnalyzer IBMObjectStoreTrace000Part0_shuffled_10000000_clean.csv csv --popularity --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 4800  traceAnalyzer cluster52.000_10000000_clean.csv csv --popularity --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 4802  traceAnalyzer cluster52.000_10000000_clean.csv csv --popularity --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 4805  traceAnalyzer cluster52.000_10000000_clean.csv csv --popularity --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5103  traceAnalyzer cluster52.000_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5105  traceAnalyzer cluster52.000_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5124  traceAnalyzer cluster52.000_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5126  traceAnalyzer cluster52.000_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5128  traceAnalyzer cluster52.000_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5131  traceAnalyzer cluster52.000_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5144  traceAnalyzer IBMObjectStoreTrace000Part0_962187_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5145  traceAnalyzer IBMObjectStoreTrace000Part0_shuffled_962187_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5155  traceAnalyzer cache-t-00_9826681_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5156  traceAnalyzer cache-t-00_shuffled_9826681_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5165  traceAnalyzer cache-u-00_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5166  traceAnalyzer cache-u-00_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5242  traceAnalyzer cluster52.000_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5243  traceAnalyzer cluster52.000_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5274  traceAnalyzer IBMObjectStoreTrace000Part0_962187_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5275  traceAnalyzer IBMObjectStoreTrace000Part0_shuffled_962187_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5309  traceAnalyzer cluster52.000_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1
+ 5310  traceAnalyzer cluster52.000_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1
+ 5327  traceAnalyzer IBMObjectStoreTrace000Part0_shuffled_962187_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5328  traceAnalyzer IBMObjectStoreTrace000Part0_962187_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5347  traceAnalyzer cache-t-00_shuffled_9826681_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5348  traceAnalyzer cache-t-00_9826681_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5369  traceAnalyzer cache-u-00_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5370  traceAnalyzer cache-u-00_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5467  traceAnalyzer meta_rnha.oracleGeneral_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5468  traceAnalyzer meta_rnha.oracleGeneral_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5475  traceAnalyzer meta_rnha.oracleGeneral_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5476  traceAnalyzer meta_rnha.oracleGeneral_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5478  traceAnalyzer meta_rnha.oracleGeneral_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5479  traceAnalyzer meta_rnha.oracleGeneral_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5543  traceAnalyzer meta_rnha.oracleGeneral_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5544  traceAnalyzer meta_rnha.oracleGeneral_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5565  traceAnalyzer cluster52.000_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1
+ 5566  traceAnalyzer cluster52.000_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1
+ 5600  traceAnalyzer IBMObjectStoreTrace000Part0_962187_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5601  traceAnalyzer IBMObjectStoreTrace000Part0_shuffled_962187_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5619  traceAnalyzer cache-t-00_9826681_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5620  traceAnalyzer cache-t-00_shuffled_9826681_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5635  traceAnalyzer cache-u-00_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
+ 5636  traceAnalyzer cache-u-00_shuffled_10000000_clean.csv csv --common --trace-type-params=time-col=1,obj-id-col=2,obj-size-col=3,delimiter=,obj-id-is-num=1 
