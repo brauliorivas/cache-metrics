@@ -7,7 +7,8 @@ from vars import units, STACK_DISTANCE, WORKING_SET, STACK_DISTANCE_LABEL, WORKI
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "f:n:m:u:", ["min=", "max=", "unit=", "datatype="])
+        opts, args = getopt.getopt(sys.argv[1:], "f:n:m:u:", [
+                                   "min=", "max=", "unit=", "datatype="])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(2)

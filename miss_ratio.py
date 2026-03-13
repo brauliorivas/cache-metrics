@@ -33,8 +33,10 @@ def miss_ratio_average(files):
 
     assert len(sorted_traces) == len(shuffled_traces)
 
-    sorted_traces_miss_ratios = [get_miss_ratios(file) for file in sorted_traces]
-    shuffled_traces_miss_ratios = [get_miss_ratios(file) for file in shuffled_traces]
+    sorted_traces_miss_ratios = [
+        get_miss_ratios(file) for file in sorted_traces]
+    shuffled_traces_miss_ratios = [
+        get_miss_ratios(file) for file in shuffled_traces]
 
     cache_size_index = {
         "0.01": 0,
@@ -57,12 +59,14 @@ def miss_ratio_average(files):
     for trace in sorted_traces_miss_ratios:
         for policy, miss_ratios in trace.items():
             for size, index in cache_size_index.items():
-                sorted_policies_miss_ratios[policy][size].append(miss_ratios[index])
+                sorted_policies_miss_ratios[policy][size].append(
+                    miss_ratios[index])
 
     for trace in shuffled_traces_miss_ratios:
         for policy, miss_ratios in trace.items():
             for size, index in cache_size_index.items():
-                shuffled_policies_miss_ratios[policy][size].append(miss_ratios[index])
+                shuffled_policies_miss_ratios[policy][size].append(
+                    miss_ratios[index])
 
     policies_deltas = defaultdict(default_value)
 
@@ -71,7 +75,8 @@ def miss_ratio_average(files):
             sorted_values = sorted_policies_miss_ratios[policy][cache_size]
             shuffled_values = shuffled_policies_miss_ratios[policy][cache_size]
             assert len(sorted_values) == len(shuffled_values)
-            delta = (sum(shuffled_values) - sum(sorted_values)) / len(sorted_values)
+            delta = (sum(shuffled_values) - sum(sorted_values)) / \
+                len(sorted_values)
             policies_deltas[policy][cache_size] = delta
 
     with open("miss_ratios.txt", "w") as output_file:
