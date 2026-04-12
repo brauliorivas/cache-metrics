@@ -4,3 +4,8 @@ __pycache__/
 test*
 .ipynb_checkpoints/
 .direnv
+main
+.cache
+*.o
+**/*.zst
+compile_commands.json

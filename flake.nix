@@ -50,12 +50,20 @@
       devShells.${system}.default = pkgs.stdenv.mkDerivation {
         pname = "dev-env";
         version = "v1.0.0";
-        nativeBuildInputs = [
+        buildInputs = [
+          pkgs.pkg-config
+          pkgs.bear
+          pkgs.llvmPackages_20.clang-tools
+          pkgs.llvmPackages_20.clang
+          pkgs.zstd
+          pkgs.glib
           pkgs.python313
-          pkgs.ninja
           libCacheSim
           stackDistance
         ];
+        shellHook = ''
+          export LD_LIBRARY_PATH=${pkgs.glib.out}/lib:${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH
+        '';
       };
     };
 }
