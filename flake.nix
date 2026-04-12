@@ -30,21 +30,6 @@
           pkgs.zstd
         ];
       };
-      stackDistance = pkgs.stdenv.mkDerivation {
-        pname = "stack-distance";
-        version = "v1.0.0";
-        src = pkgs.fetchFromGitHub {
-          owner = "jcipar";
-          repo = "stack-distance";
-          rev = "master";
-          hash = "sha256-tD3l8eczpSId0EtLPzmeDQ3K5+6VK2ZG8gQCiRy1/r0=";
-        };
-        nativeBuildInputs = [ pkgs.clang ];
-        installPhase = ''
-          mkdir -p $out/bin
-          cp stack-distance $out/bin
-        '';
-      };
     in
     {
       devShells.${system}.default = pkgs.stdenv.mkDerivation {
@@ -59,7 +44,6 @@
           pkgs.glib
           pkgs.python313
           libCacheSim
-          stackDistance
         ];
         shellHook = ''
           export LD_LIBRARY_PATH=${pkgs.glib.out}/lib:${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH
