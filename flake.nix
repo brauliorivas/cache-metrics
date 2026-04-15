@@ -42,7 +42,6 @@
           pkgs.llvmPackages_20.clang
           pkgs.zstd
           pkgs.glib
-          pkgs.python313
           libCacheSim
         ];
         shellHook = ''
