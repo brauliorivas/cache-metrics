@@ -9,3 +9,4 @@ main
 *.o
 **/*.zst
 compile_commands.json
+*.svg

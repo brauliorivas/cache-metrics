@@ -5,12 +5,12 @@ from scipy import stats
 
 @dataclass
 class SummaryStats:
-    min: float
-    q1: float
-    q2: float
-    q3: float
-    max: float
-    skewness: float
+    min: float = 0
+    q1: float = 0
+    q2: float = 0
+    q3: float = 0
+    max: float = 0
+    skewness: float = 0
 
 
 def five_number_summary(data: list[float] | np.ndarray) -> SummaryStats:

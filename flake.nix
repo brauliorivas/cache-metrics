@@ -45,7 +45,7 @@
           libCacheSim
         ];
         shellHook = ''
-          export LD_LIBRARY_PATH=${pkgs.glib.out}/lib:${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${pkgs.glib.out}/lib:$LD_LIBRARY_PATH
         '';
       };
     };
