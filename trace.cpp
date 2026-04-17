@@ -44,7 +44,7 @@ static void compressBuffer_orDie(const OracleGeneral *buf, size_t n, FILE *fout,
 }
 
 /* ── main logic ── */
-void convert_trace(char *in_path, uint64_t records, int permute) {
+void convert_trace(char *in_path, uint64_t records, int permute, int verbose) {
   char *out_path = build_filename(in_path, permute, records);
   FILE *fout = fopen_orDie(out_path, "wb");
 
@@ -75,7 +75,9 @@ void convert_trace(char *in_path, uint64_t records, int permute) {
       if (permute)
         shuffle(buf, n);
       compressBuffer_orDie(buf, n, fout, cctx, 0);
-      printf("written %zu records (total %" PRIu64 ")\r", n, total);
+      if (verbose) {
+        printf("written %zu records (total %" PRIu64 ")\r", n, total);
+      }
       n = 0;
     }
 
@@ -86,11 +88,17 @@ void convert_trace(char *in_path, uint64_t records, int permute) {
   if (n > 0) {
     shuffle(buf, n);
     compressBuffer_orDie(buf, n, fout, cctx, 1);
-    printf("written %zu records (total %" PRIu64 ")\r", n, total);
+    if (verbose) {
+      printf("written %zu records (total %" PRIu64 ")\r", n, total);
+    }
   }
 
-  printf("\ndone. %" PRIu64 " records total.\n", total);
-  printf("Generated new file %s\n", out_path);
+  if (verbose) {
+    printf("\ndone. %" PRIu64 " records total.\n", total);
+    printf("Generated new file %s\n", out_path);
+  }
+
+  printf("%s\n", out_path);
 
   ZSTD_freeCCtx(cctx);
   free(buf);

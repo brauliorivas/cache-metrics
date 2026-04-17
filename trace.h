@@ -7,6 +7,6 @@
 #define COMPRESS_LEVEL 3
 #define SHUFFLE_SEED 42ULL
 
-void convert_trace(char *in_path, uint64_t records, int permute);
+void convert_trace(char *in_path, uint64_t records, int permute, int verbose);
 
 #endif // !__CACHE_COMPRESS__

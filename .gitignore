@@ -1,12 +1,8 @@
-cache
 __pycache__/
-**/*.gz
-test*
-.ipynb_checkpoints/
+tests
 .direnv
 main
 .cache
 *.o
-**/*.zst
+*.zst
 compile_commands.json
-*.svg

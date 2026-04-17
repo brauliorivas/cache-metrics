@@ -10,6 +10,7 @@
 
 struct option long_options[] = {
     {"help", no_argument, NULL, 'h'},
+    {"verbose", no_argument, NULL, 'v'},
     {"file", required_argument, NULL, 'f'},
     {"print", no_argument, NULL, 'p'},
     {"records", required_argument, NULL, 'r'},
@@ -24,14 +25,18 @@ int main(int argc, char *argv[]) {
   char *file = NULL;
   int print = 0;
   int shuffle = 0;
+  int verbose = 0;
   uint64_t records = 0;
 
   while ((opt = getopt_long(argc, argv, "hf:pr:s", long_options, NULL)) != -1) {
     switch (opt) {
     case 'h':
-      fprintf(stdout, "Usage: %s -f FILE [-r RECORDS] [-p] [-s] [-h]\n",
+      fprintf(stdout, "Usage: %s -f FILE [-r RECORDS] [-p] [-s] [-v] [-h]\n",
               argv[0]);
       return 0;
+    case 'v':
+      verbose = 1;
+      break;
     case 'f':
       file = optarg;
       break;
@@ -68,26 +73,32 @@ int main(int argc, char *argv[]) {
     uint64_t c = 0;
     while (read_one_req(reader, req) == 0) {
       c++;
-      if (c % 1000000 == 0) {
+      if (c % 1000000 == 0 && verbose) {
         printf("obj_id=%lu obj_size=%lu clock=%ld next=%ld : c=%lu\n",
                req->obj_id, req->obj_size, req->clock_time,
                req->next_access_vtime, c);
       }
     }
-    printf("There are %lu records in this trace\n", c);
+    if (verbose) {
+      printf("There are %lu records in this trace\n", c);
+    }
     close_trace(reader);
     free_request(req);
     return 0;
   }
 
   if (records != 0) {
-    printf("Selecting %lu records from the trace: %s\n", records, file);
-    convert_trace(file, records, 0);
+    if (verbose) {
+      printf("Selecting %lu records from the trace: %s\n", records, file);
+    }
+    convert_trace(file, records, 0, verbose);
   }
 
   if (shuffle) {
-    printf("Shuffling the trace: %s\n", file);
-    convert_trace(file, records, 1);
+    if (verbose) {
+      printf("Shuffling the trace: %s\n", file);
+    }
+    convert_trace(file, records, 1, verbose);
   }
 
   return 0;
