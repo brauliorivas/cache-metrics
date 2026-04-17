@@ -26,7 +26,7 @@ run_analysis ./cluster45.oracleGeneral.sample10.zst ./traces/cluster45 cluster45
 run_analysis ./wiki_2019t.oracleGeneral.zst ./traces/wiki_2019t wiki_2019t # DONE
 
 # 2022 Meta CDN (rprn 1/4.58, DRAM 8357 MB, NVM 375956 MB)
-run_analysis ./meta_rprn.oracleGeneral.zst ./traces/meta_rprn meta_rprn # DONE
+run_analysis ./meta_rprn.oracleGeneral.zst ./traces/meta_cdn_rprn meta_cdn_rprn # DONE
 
 # 2022 Oct Meta KV
 run_analysis ./202210_kv_traces_all_sort.csv.oracleGeneral.zst ./traces/202210_meta_kv 202210_meta_kv # DONE
