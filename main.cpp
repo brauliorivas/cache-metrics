@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
 
   if (shuffle) {
     printf("Shuffling the trace: %s\n", file);
-    convert_trace(file, 0, 1);
+    convert_trace(file, records, 1);
   }
 
   return 0;
