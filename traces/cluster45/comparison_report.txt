@@ -1,0 +1,82 @@
+Comparison Report
+Trace: cluster45
+=================
+
+1) Stack Distance Summary Comparison
+  - max: NORMAL is 0.98% higher than SHUFFLED (normal=406144.000000, shuffled=402196.000000).
+  - min: NORMAL is 0.00% lower than SHUFFLED (normal=1.000000, shuffled=1.000000).
+  - q1: NORMAL is 99.98% lower than SHUFFLED (normal=1.000000, shuffled=6591.000000).
+  - q2: NORMAL is 99.99% lower than SHUFFLED (normal=2.000000, shuffled=25858.000000).
+  - q3: NORMAL is 88.74% lower than SHUFFLED (normal=7769.500000, shuffled=68983.500000).
+  - skewness: NORMAL is 199.46% higher than SHUFFLED (normal=5.043834, shuffled=1.684306).
+
+2) Working Set Summary Comparison
+  ws_size=0.10%
+    - max: NORMAL is 0.00% lower than SHUFFLED (normal=409.000000, shuffled=409.000000).
+    - min: NORMAL is 51.97% lower than SHUFFLED (normal=183.000000, shuffled=381.000000).
+    - q1: NORMAL is 39.85% lower than SHUFFLED (normal=240.000000, shuffled=399.000000).
+    - q2: NORMAL is 38.06% lower than SHUFFLED (normal=249.000000, shuffled=402.000000).
+    - q3: NORMAL is 36.14% lower than SHUFFLED (normal=258.000000, shuffled=404.000000).
+    - skewness: NORMAL is 440.64% lower than SHUFFLED (normal=2.075299, shuffled=-0.609237).
+  ws_size=1.00%
+    - max: NORMAL is 3.06% lower than SHUFFLED (normal=3769.000000, shuffled=3888.000000).
+    - min: NORMAL is 45.66% lower than SHUFFLED (normal=1992.000000, shuffled=3666.000000).
+    - q1: NORMAL is 38.96% lower than SHUFFLED (normal=2305.000000, shuffled=3776.000000).
+    - q2: NORMAL is 38.34% lower than SHUFFLED (normal=2345.000000, shuffled=3803.000000).
+    - q3: NORMAL is 37.64% lower than SHUFFLED (normal=2389.000000, shuffled=3831.000000).
+    - skewness: NORMAL is 423.73% lower than SHUFFLED (normal=2.208874, shuffled=-0.682325).
+  ws_size=10.00%
+    - max: NORMAL is 17.11% lower than SHUFFLED (normal=27757.000000, shuffled=33485.000000).
+    - min: NORMAL is 25.90% lower than SHUFFLED (normal=20356.000000, shuffled=27471.000000).
+    - q1: NORMAL is 34.36% lower than SHUFFLED (normal=21053.000000, shuffled=32072.000000).
+    - q2: NORMAL is 33.73% lower than SHUFFLED (normal=21290.000000, shuffled=32128.000000).
+    - q3: NORMAL is 33.12% lower than SHUFFLED (normal=21519.000000, shuffled=32177.000000).
+    - skewness: NORMAL is 190.33% lower than SHUFFLED (normal=2.311439, shuffled=-2.558926).
+
+3) Miss Ratio (req_miss_ratio) Comparison
+  - cache_size=1.00%, policy=ARC: NORMAL is 30.29% lower than SHUFFLED (normal=0.570353, shuffled=0.818209).
+  - cache_size=1.00%, policy=LIRS: NORMAL is 30.98% lower than SHUFFLED (normal=0.559240, shuffled=0.810203).
+  - cache_size=1.00%, policy=Random: NORMAL is 34.17% lower than SHUFFLED (normal=0.592503, shuffled=0.899989).
+  - cache_size=1.00%, policy=SLRU: NORMAL is 31.73% lower than SHUFFLED (normal=0.557401, shuffled=0.816411).
+  - cache_size=1.00%, policy=Sieve: NORMAL is 32.89% lower than SHUFFLED (normal=0.567329, shuffled=0.845374).
+  - cache_size=1.00%, policy=WTinyLFU: NORMAL is 32.17% lower than SHUFFLED (normal=0.548007, shuffled=0.807958).
+  - cache_size=10.00%, policy=ARC: NORMAL is 24.68% lower than SHUFFLED (normal=0.469570, shuffled=0.623400).
+  - cache_size=10.00%, policy=LIRS: NORMAL is 20.99% lower than SHUFFLED (normal=0.460106, shuffled=0.582325).
+  - cache_size=10.00%, policy=Random: NORMAL is 27.14% lower than SHUFFLED (normal=0.494813, shuffled=0.679153).
+  - cache_size=10.00%, policy=SLRU: NORMAL is 22.12% lower than SHUFFLED (normal=0.457258, shuffled=0.587159).
+  - cache_size=10.00%, policy=Sieve: NORMAL is 30.60% lower than SHUFFLED (normal=0.458130, shuffled=0.660131).
+  - cache_size=10.00%, policy=WTinyLFU: NORMAL is 23.21% lower than SHUFFLED (normal=0.473670, shuffled=0.616829).
+  - cache_size=25.00%, policy=ARC: NORMAL is 14.76% lower than SHUFFLED (normal=0.446864, shuffled=0.524242).
+  - cache_size=25.00%, policy=LIRS: NORMAL is 11.14% lower than SHUFFLED (normal=0.442325, shuffled=0.497784).
+  - cache_size=25.00%, policy=Random: NORMAL is 16.08% lower than SHUFFLED (normal=0.452771, shuffled=0.539554).
+  - cache_size=25.00%, policy=SLRU: NORMAL is 13.24% lower than SHUFFLED (normal=0.432510, shuffled=0.498486).
+  - cache_size=25.00%, policy=Sieve: NORMAL is 9.51% lower than SHUFFLED (normal=0.463362, shuffled=0.512075).
+  - cache_size=25.00%, policy=WTinyLFU: NORMAL is 13.51% lower than SHUFFLED (normal=0.451704, shuffled=0.522259).
+  - cache_size=50.00%, policy=ARC: NORMAL is 1.13% lower than SHUFFLED (normal=0.412522, shuffled=0.417240).
+  - cache_size=50.00%, policy=LIRS: NORMAL is 7.23% lower than SHUFFLED (normal=0.429909, shuffled=0.463407).
+  - cache_size=50.00%, policy=Random: NORMAL is 6.15% lower than SHUFFLED (normal=0.426018, shuffled=0.453931).
+  - cache_size=50.00%, policy=SLRU: NORMAL is 3.88% lower than SHUFFLED (normal=0.414385, shuffled=0.431094).
+  - cache_size=50.00%, policy=Sieve: NORMAL is 1.13% lower than SHUFFLED (normal=0.412545, shuffled=0.417271).
+  - cache_size=50.00%, policy=WTinyLFU: NORMAL is 6.61% lower than SHUFFLED (normal=0.432430, shuffled=0.463045).
+
+  Average by cache size
+  - cache_size=1.00%: NORMAL is 32.08% lower than SHUFFLED (normal=0.565806, shuffled=0.833024).
+  - cache_size=10.00%: NORMAL is 24.95% lower than SHUFFLED (normal=0.468925, shuffled=0.624833).
+  - cache_size=25.00%: NORMAL is 13.08% lower than SHUFFLED (normal=0.448256, shuffled=0.515733).
+  - cache_size=50.00%: NORMAL is 4.47% lower than SHUFFLED (normal=0.421301, shuffled=0.440998).
+
+  Average by eviction policy
+  - policy=ARC: NORMAL is 20.30% lower than SHUFFLED (normal=0.474827, shuffled=0.595773).
+  - policy=LIRS: NORMAL is 19.63% lower than SHUFFLED (normal=0.472895, shuffled=0.588430).
+  - policy=Random: NORMAL is 23.58% lower than SHUFFLED (normal=0.491526, shuffled=0.643157).
+  - policy=SLRU: NORMAL is 20.21% lower than SHUFFLED (normal=0.465388, shuffled=0.583287).
+  - policy=Sieve: NORMAL is 21.91% lower than SHUFFLED (normal=0.475342, shuffled=0.608713).
+  - policy=WTinyLFU: NORMAL is 20.92% lower than SHUFFLED (normal=0.476453, shuffled=0.602523).
+
+4) Most Significant req_miss_ratio Differences
+  - By cache size + policy: cache_size=1.00%, policy=Random
+      - cache_size=1.00%, policy=Random: NORMAL is 34.17% lower than SHUFFLED (normal=0.592503, shuffled=0.899989).
+  - By cache size only: cache_size=1.00%
+      - cache_size=1.00%: NORMAL is 32.08% lower than SHUFFLED (normal=0.565806, shuffled=0.833024).
+  - By eviction policy only: policy=Random
+      - policy=Random: NORMAL is 23.58% lower than SHUFFLED (normal=0.491526, shuffled=0.643157).
