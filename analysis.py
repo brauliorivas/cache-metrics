@@ -85,14 +85,14 @@ def analysis(
             sd_results,
             title="Stack Distance CDF",
             axis_label="Stack Distance",
-            output_path=plot_path / "stack_distance_cdf.svg",
+            output_path=plot_path / "stack_distance_cdf.png",
         )
         analysis_results.stack_distance.plot.cdf_path = cdf_path
         boxplot_path = plot_boxplot(
             sd_results,
             title="Stack Distance Boxplot",
             axis_label="Stack Distance",
-            output_path=plot_path / "stack_distance_boxplot.svg",
+            output_path=plot_path / "stack_distance_boxplot.png",
         )
         analysis_results.stack_distance.plot.boxplot_path = boxplot_path
 
@@ -108,14 +108,14 @@ def analysis(
                 ws_results,
                 title=f"Working Set CDF ({ws_size})",
                 axis_label="Unique Objects in Working Set",
-                output_path=plot_path / f"working_set_cdf_{ws_size}.svg",
+                output_path=plot_path / f"working_set_cdf_{ws_size}.png",
             )
             results.plot.cdf_path = cdf_path
             boxplot_path = plot_boxplot(
                 ws_results,
                 title=f"Working Set Boxplot ({ws_size})",
                 axis_label="Unique Objects in Working Set",
-                output_path=plot_path / f"working_set_boxplot_{ws_size}.svg",
+                output_path=plot_path / f"working_set_boxplot_{ws_size}.png",
             )
             results.plot.boxplot_path = boxplot_path
             analysis_results.working_set.append(results)
