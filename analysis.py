@@ -235,7 +235,7 @@ def comparison_report(
 
     highlights: list[tuple[float, str]] = []
 
-    with open(output_path / "comparison_report.txt", "w") as f:
+    with open(output_path / f"{trace_name}_comparison_report.txt", "w") as f:
         f.write("Comparison Report\n")
         f.write(f"Trace: {trace_name}\n")
         f.write("=================\n\n")
@@ -368,6 +368,9 @@ def comparison_report(
             _, policy, line = max(policy_diffs, key=lambda x: x[0])
             f.write(f"  - By eviction policy only: policy={policy}\n    {line}\n")
 
+        f.write("\n5) Zipf\n")
+        f.write(f"Zipf value: {normal_results.zipf:.6f}\n")
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -459,7 +462,13 @@ def main():
         shuffled_path = output / "shuffled"
         shuffled_path.mkdir(parents=True, exist_ok=True)
         shuffled_results = analysis(
-            shuffled_trace, stack_distance, working_set, zipf, rate, cardinality, shuffled_path
+            shuffled_trace,
+            stack_distance,
+            working_set,
+            zipf,
+            rate,
+            cardinality,
+            shuffled_path,
         )
         pprint.pprint(shuffled_results)
         create_report(shuffled_results, shuffled_path)

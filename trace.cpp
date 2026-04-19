@@ -4,6 +4,7 @@
 #include "types.h"
 #include "xoshiro.h"
 #include <libCacheSim.h>
+#include <libCacheSim/enum.h>
 #include <zstd.h>
 
 #define BUFFER_SIZE (10 * 1024 * 1024)
@@ -44,11 +45,11 @@ static void compressBuffer_orDie(const OracleGeneral *buf, size_t n, FILE *fout,
 }
 
 /* ── main logic ── */
-void convert_trace(char *in_path, uint64_t records, int permute, int verbose) {
+void convert_trace(char *in_path, trace_type_e trace_format, uint64_t records, int permute, int verbose) {
   char *out_path = build_filename(in_path, permute, records);
   FILE *fout = fopen_orDie(out_path, "wb");
 
-  reader_t *reader = open_trace(in_path, ORACLE_GENERAL_TRACE, NULL);
+  reader_t *reader = open_trace(in_path, trace_format, NULL);
   request_t *req = new_request();
 
   size_t buffInSize = BUFFER_SIZE - (BUFFER_SIZE % sizeof(OracleGeneral));
