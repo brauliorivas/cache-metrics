@@ -1,4 +1,4 @@
-# Cache Trace Analysis Toolkit
+# Cache Trace Analysis
 
 A comprehensive toolkit for processing, shuffling, and analyzing cache traces in OracleGeneral format. This project enables comparative analysis between normal and shuffled traces to study temporal locality effects on cache performance.
 
