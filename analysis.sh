@@ -28,12 +28,16 @@ run_analysis ./wiki_2019t.oracleGeneral.zst ./traces/wiki_2019t wiki_2019t # DON
 # 2022 Meta CDN (rprn 1/4.58, DRAM 8357 MB, NVM 375956 MB)
 run_analysis ./meta_rprn.oracleGeneral.zst ./traces/meta_cdn_rprn meta_cdn_rprn # DONE
 
-# 2022 Oct Meta KV
+# Meta KV
 run_analysis ./202210_kv_traces_all_sort.csv.oracleGeneral.zst ./traces/202210_meta_kv 202210_meta_kv # DONE
+run_analysis ./202401_kv_traces_all_sort.csv.oracleGeneral.zst ./traces/202401_meta_kv 202401_meta_kv # DONE
 
 # 2022 Meta Storage
 run_analysis ./block_traces_1.oracleGeneral.bin.zst ./traces/meta_storage_1 meta_storage_1 # DONE
 run_analysis ./block_traces_2.oracleGeneral.bin.zst ./traces/meta_storage_2 meta_storage_2 # DONE
 run_analysis ./block_traces_3.oracleGeneral.bin.zst ./traces/meta_storage_3 meta_storage_3 # DONE
-run_analysis ./block_traces_4.oracleGeneral.bin.zst ./traces/meta_storage_4 meta_storage_4
-run_analysis ./block_traces_5.oracleGeneral.bin.zst ./traces/meta_storage_5 meta_storage_5
+run_analysis ./block_traces_4.oracleGeneral.bin.zst ./traces/meta_storage_4 meta_storage_4 # DONE
+run_analysis ./block_traces_5.oracleGeneral.bin.zst ./traces/meta_storage_5 meta_storage_5 # DONE
+
+# Alibaba Block
+run_analysis ./alibabaBlock_38.oracleGeneral.zst ./traces/alibaba_block_38 alibaba_block_38 # DONE

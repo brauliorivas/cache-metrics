@@ -1,0 +1,41 @@
+Stack Distance Summary:
+SummaryStats(min=np.float64(1.0), q1=np.float64(1.0), q2=np.float64(97.0), q3=np.float64(1544.0), max=np.float64(508803.0), skewness=np.float64(9.06387403734299)) 
+
+Working Set Summary (ws_size=10.0%):
+SummaryStats(min=np.float64(269.0), q1=np.float64(332.0), q2=np.float64(343.0), q3=np.float64(356.0), max=np.float64(512.0), skewness=np.float64(2.0104247219432905)) 
+
+Working Set Summary (ws_size=100%):
+SummaryStats(min=np.float64(2867.0), q1=np.float64(2998.0), q2=np.float64(3056.0), q3=np.float64(3130.0), max=np.float64(4936.0), skewness=np.float64(2.2113978416166917)) 
+
+Working Set Summary (ws_size=1000%):
+SummaryStats(min=np.float64(26941.0), q1=np.float64(27981.0), q2=np.float64(28536.0), q3=np.float64(29061.0), max=np.float64(36543.0), skewness=np.float64(2.0826296985949484)) 
+
+Zipf Alpha: 2.161191737290975
+
+Cardinality: 519687
+
+Miss Ratios:
+Sieve (cache_size=1.0%): Req Miss Ratio=0.6272, Byte Miss Ratio=0.7470
+Sieve (cache_size=10.0%): Req Miss Ratio=0.5363, Byte Miss Ratio=0.6601
+Sieve (cache_size=25.0%): Req Miss Ratio=0.5216, Byte Miss Ratio=0.6380
+Sieve (cache_size=50.0%): Req Miss Ratio=0.5132, Byte Miss Ratio=0.6260
+WTinyLFU (cache_size=1.0%): Req Miss Ratio=0.6993, Byte Miss Ratio=0.8218
+WTinyLFU (cache_size=10.0%): Req Miss Ratio=0.5803, Byte Miss Ratio=0.7135
+WTinyLFU (cache_size=25.0%): Req Miss Ratio=0.5718, Byte Miss Ratio=0.7078
+WTinyLFU (cache_size=50.0%): Req Miss Ratio=0.5443, Byte Miss Ratio=0.6720
+LIRS (cache_size=1.0%): Req Miss Ratio=0.6435, Byte Miss Ratio=0.7936
+LIRS (cache_size=10.0%): Req Miss Ratio=0.5663, Byte Miss Ratio=0.7083
+LIRS (cache_size=25.0%): Req Miss Ratio=0.5569, Byte Miss Ratio=0.6969
+LIRS (cache_size=50.0%): Req Miss Ratio=0.5409, Byte Miss Ratio=0.6698
+ARC (cache_size=1.0%): Req Miss Ratio=0.7101, Byte Miss Ratio=0.8541
+ARC (cache_size=10.0%): Req Miss Ratio=0.6344, Byte Miss Ratio=0.7721
+ARC (cache_size=25.0%): Req Miss Ratio=0.5741, Byte Miss Ratio=0.6997
+ARC (cache_size=50.0%): Req Miss Ratio=0.5132, Byte Miss Ratio=0.6260
+SLRU (cache_size=1.0%): Req Miss Ratio=0.6074, Byte Miss Ratio=0.7348
+SLRU (cache_size=10.0%): Req Miss Ratio=0.5493, Byte Miss Ratio=0.6819
+SLRU (cache_size=25.0%): Req Miss Ratio=0.5256, Byte Miss Ratio=0.6465
+SLRU (cache_size=50.0%): Req Miss Ratio=0.5132, Byte Miss Ratio=0.6263
+Random (cache_size=1.0%): Req Miss Ratio=0.6225, Byte Miss Ratio=0.7396
+Random (cache_size=10.0%): Req Miss Ratio=0.5494, Byte Miss Ratio=0.6672
+Random (cache_size=25.0%): Req Miss Ratio=0.5297, Byte Miss Ratio=0.6449
+Random (cache_size=50.0%): Req Miss Ratio=0.5188, Byte Miss Ratio=0.6320
