@@ -80,3 +80,5 @@ Trace: wiki_2019t
       - cache_size=10.00%: NORMAL is 1.71% lower than SHUFFLED (normal=0.730804, shuffled=0.743501).
   - By eviction policy only: policy=Random
       - policy=Random: NORMAL is 2.07% lower than SHUFFLED (normal=0.741073, shuffled=0.756739).
+
+5) Zipf: 2.50

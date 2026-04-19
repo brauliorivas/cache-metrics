@@ -80,3 +80,5 @@ Trace: alibaba_block_38
       - cache_size=25.00%: NORMAL is 6.50% lower than SHUFFLED (normal=0.409550, shuffled=0.438027).
   - By eviction policy only: policy=Sieve
       - policy=Sieve: NORMAL is 9.84% higher than SHUFFLED (normal=0.656613, shuffled=0.597775).
+
+5) Zipf: 1.84

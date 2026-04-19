@@ -80,3 +80,5 @@ Trace: cluster45
       - cache_size=1.00%: NORMAL is 32.08% lower than SHUFFLED (normal=0.565806, shuffled=0.833024).
   - By eviction policy only: policy=Random
       - policy=Random: NORMAL is 23.58% lower than SHUFFLED (normal=0.491526, shuffled=0.643157).
+
+5) Zipf: 2.53

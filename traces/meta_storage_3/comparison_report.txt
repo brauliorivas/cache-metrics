@@ -80,3 +80,5 @@ Trace: meta_storage_3
       - cache_size=1.00%: NORMAL is 31.73% lower than SHUFFLED (normal=0.611051, shuffled=0.895115).
   - By eviction policy only: policy=Random
       - policy=Random: NORMAL is 24.21% lower than SHUFFLED (normal=0.538042, shuffled=0.709907).
+
+5) Zipf: 2.04

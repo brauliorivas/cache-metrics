@@ -80,3 +80,6 @@ Trace: 202210_meta_kv
       - cache_size=1.00%: NORMAL is 19.36% lower than SHUFFLED (normal=0.390591, shuffled=0.484366).
   - By eviction policy only: policy=Random
       - policy=Random: NORMAL is 18.56% lower than SHUFFLED (normal=0.318364, shuffled=0.390920).
+
+
+5) Zipf: 2.11
