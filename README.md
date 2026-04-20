@@ -12,7 +12,7 @@ This toolkit consists of two main components:
 
 3. **`analysis.sh`** (Bash): Orchestrates the execution of both tools to perform complete analysis pipelines on trace datasets.
 
-## Building
+## Running 
 
 ### Prerequisites
 
@@ -39,10 +39,11 @@ The C++ program provides trace file processing capabilities for OracleGeneral fo
 **Command Line Options:**
 
 ```
-Usage: ./main -f FILE [-r RECORDS] [-p] [-s] [-v] [-h]
+Usage: ./main -f FILE [-r RECORDS] [-F TRACE_FORMAT] [-p] [-s] [-v] [-h]
 
 Options:
   -f, --file FILE       Path to the input .zst trace file (required)
+  -F, --format FORMAT   Trace format (default: OracleGeneral)
   -r, --records NUM     Number of records to select/sample (0 = all)
   -p, --print           Print trace contents (for debugging)
   -s, --shuffle         Shuffle the trace using Fisher-Yates algorithm
@@ -54,7 +55,7 @@ Options:
 
 ```bash
 # Select 1 million records from a trace
-./main -f trace.oracleGeneral.zst -r 1000000
+./main -f trace.oracleGeneral.zst -r 1000000 -F csv
 
 # Shuffle a trace (generates permuted output)
 ./main -f trace.oracleGeneral.zst -r 1000000 -s
@@ -284,6 +285,47 @@ Or using uv:
 ```bash
 uv sync
 ```
+
+## Trace Data
+
+All traces used in this analysis are from the [cacheMon/cache_dataset](https://github.com/cacheMon/cache_dataset) repository. The traces are located in the `traces/` directory and include:
+
+### Meta Traces
+
+- **202210_meta_kv** / **202401_meta_kv**: Meta key-value storage traces from October 2022 and January 2024. These traces show moderate temporal locality with Zipf alpha values around 1.7-2.2. The 202210 trace has ~40K unique objects while 202401 has ~230K.
+
+- **meta_cdn_rprn**: Meta CDN replacement trace with ~452K unique objects. Shows high skewness in stack distance (9.19) indicating bursty access patterns.
+
+- **meta_storage_1** through **meta_storage_5**: Five Meta storage traces with varying characteristics:
+  - `meta_storage_1`: ~523K unique objects, very high stack distance skewness
+  - `meta_storage_2`: ~502K unique objects, similar patterns to storage_1
+  - `meta_storage_3`: ~513K unique objects
+  - `meta_storage_4`: ~520K unique objects
+  - `meta_storage_5`: ~538K unique objects
+
+### Cloud Provider Traces
+
+- **alibaba_block_38**: Alibaba Cloud block storage trace with ~119K unique objects. Notable for extremely high stack distances (median ~27K) indicating very poor temporal locality.
+
+- **google_cluster_2**: Google cluster trace with ~499K unique objects. Shows near-zero skewness (0.0002) in stack distance, suggesting unusually uniform access patterns.
+
+- **tencent_block_1360**: Tencent Cloud block storage trace with ~526K unique objects. High Zipf alpha (2.5) indicating strong skew toward hot objects.
+
+### Cluster Traces
+
+- **cluster17** / **cluster18**: Two cluster traces with different scales:
+  - `cluster17`: ~205K unique objects, low median stack distance (1.0)
+  - `cluster18`: ~77K unique objects, moderate temporal locality
+
+- **cluster29**: ~122K unique objects with moderate stack distances and working set sizes.
+
+- **cluster44** / **cluster45**: Larger cluster traces:
+  - `cluster44`: ~143K unique objects
+  - `cluster45`: ~416K unique objects with high stack distance skewness (5.04)
+
+### Other Traces
+
+- **wiki_2019t**: Wikipedia 2019 trace with ~333K unique objects. Highest Zipf alpha (2.7) among all traces, indicating very strong access skew.
 
 ## License
 

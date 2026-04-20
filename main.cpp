@@ -16,7 +16,7 @@ struct option long_options[] = {
     {"print", no_argument, NULL, 'p'},
     {"records", required_argument, NULL, 'r'},
     {"shuffle", no_argument, NULL, 's'},
-    {"format", optional_argument, NULL, 'F'},
+    {"format", required_argument, NULL, 'F'},
     {NULL, 0, NULL, 0} // terminator
 };
 
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
   uint64_t records = 0;
   trace_type_e trace_format = ORACLE_GENERAL_TRACE;
 
-  while ((opt = getopt_long(argc, argv, "hf:F::pr:s", long_options, NULL)) != -1) {
+  while ((opt = getopt_long(argc, argv, "hf:F:pr:s", long_options, NULL)) != -1) {
     switch (opt) {
     case 'h':
       fprintf(stdout, "Usage: %s -f FILE [F TRACE_FORMAT] [-r RECORDS] [-p] [-s] [-v] [-h]\n",

@@ -34,11 +34,15 @@ run_analysis ./meta_rprn.oracleGeneral.zst ./traces/meta_cdn_rprn meta_cdn_rprn 
 run_analysis ./wiki_2019t.oracleGeneral.zst ./traces/wiki_2019t wiki_2019t # DONE
 
 # BLOCK TRACES
+# 2024 Google
+run_analysis ./cluster2_16TB.sort.csv.zst ./traces/google_cluster_2 google_cluster_2 # DONE
 # 2022 Meta Storage
 run_analysis ./block_traces_1.oracleGeneral.bin.zst ./traces/meta_storage_1 meta_storage_1 # DONE
 run_analysis ./block_traces_2.oracleGeneral.bin.zst ./traces/meta_storage_2 meta_storage_2 # DONE
 run_analysis ./block_traces_3.oracleGeneral.bin.zst ./traces/meta_storage_3 meta_storage_3 # DONE
 run_analysis ./block_traces_4.oracleGeneral.bin.zst ./traces/meta_storage_4 meta_storage_4 # DONE
 run_analysis ./block_traces_5.oracleGeneral.bin.zst ./traces/meta_storage_5 meta_storage_5 # DONE
+# 2018 Tencent CBS
+run_analysis ./tencentBlock_1360.oracleGeneral.zst ./traces/tencent_block_1360 tencent_block_1360 # DONE
 # 2020 Alibaba Block
 run_analysis ./alibabaBlock_38.oracleGeneral.zst ./traces/alibaba_block_38 alibaba_block_38 # DONE
