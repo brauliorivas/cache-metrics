@@ -7,3 +7,4 @@ main
 *.zst
 compile_commands.json
 measurement_runs.jsonl
+.codex

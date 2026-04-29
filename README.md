@@ -352,3 +352,17 @@ All traces used in this analysis are from the [cacheMon/cache_dataset](https://g
 ## License
 
 See LICENSE file for details. Code is licensed under MIT License.
+
+### 4. Export All Reports to a Single CSV
+
+To consolidate every `traces/<trace>/{normal,shuffled}/report.txt` into one flat CSV for downstream analysis:
+
+```bash
+python export_reports_csv.py --output merged_reports.csv
+```
+
+Options:
+
+- `--traces-root` (default: `traces`)
+- `--output` (default: `merged_reports.csv`)
+- `--strict` / `--no-strict` (default: strict)
