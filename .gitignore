@@ -6,3 +6,4 @@ main
 *.o
 *.zst
 compile_commands.json
+measurement_runs.jsonl
