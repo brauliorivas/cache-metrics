@@ -1,0 +1,165 @@
+Measurement Summary
+===================
+
+=== Scope: normal ===
+records=17
+
+Metric Timings
+- cardinality_sec: count=17, mean=1.232037s, median=1.241412s, p95=1.286323s, stddev=0.048433s
+- eviction_avg_all_sec: count=17, mean=2.240026s, median=0.729837s, p95=7.917550s, stddev=2.932657s
+- miss_rates_total_sec: count=17, mean=53.773590s, median=17.516369s, p95=190.046517s, stddev=70.394642s
+- stack_distance_sec: count=17, mean=3.689888s, median=3.727822s, p95=4.170018s, stddev=0.330359s
+- total_measured_sec: count=17, mean=67.130576s, median=31.881845s, p95=203.324431s, stddev=70.429652s
+- working_set_0.1_sec: count=17, mean=2.060009s, median=2.063759s, p95=2.168143s, stddev=0.074536s
+- working_set_10_sec: count=17, mean=2.133959s, median=2.154784s, p95=2.230429s, stddev=0.064599s
+- working_set_1_sec: count=17, mean=2.081273s, median=2.076825s, p95=2.171316s, stddev=0.083695s
+- zipf_sec: count=17, mean=2.111982s, median=2.158568s, p95=2.718224s, stddev=0.454641s
+
+Eviction: Single Policy+Size
+- policy=ARC, cache_size=1.00%: count=17, mean=0.371045s, median=0.371065s, p95=0.600445s, stddev=0.143435s
+- policy=ARC, cache_size=10.00%: count=17, mean=0.346699s, median=0.356127s, p95=0.580439s, stddev=0.123180s
+- policy=ARC, cache_size=25.00%: count=17, mean=0.342297s, median=0.346784s, p95=0.579451s, stddev=0.121557s
+- policy=ARC, cache_size=50.00%: count=17, mean=0.349210s, median=0.369618s, p95=0.582345s, stddev=0.127762s
+- policy=LIRS, cache_size=1.00%: count=17, mean=0.746512s, median=0.766590s, p95=1.110628s, stddev=0.203111s
+- policy=LIRS, cache_size=10.00%: count=17, mean=0.734117s, median=0.741193s, p95=1.125871s, stddev=0.227003s
+- policy=LIRS, cache_size=25.00%: count=17, mean=0.695806s, median=0.738552s, p95=1.039254s, stddev=0.212383s
+- policy=LIRS, cache_size=50.00%: count=17, mean=0.660508s, median=0.724101s, p95=0.994614s, stddev=0.202880s
+- policy=Random, cache_size=1.00%: count=17, mean=0.215704s, median=0.203318s, p95=0.401357s, stddev=0.109100s
+- policy=Random, cache_size=10.00%: count=17, mean=0.203333s, median=0.199423s, p95=0.391504s, stddev=0.102824s
+- policy=Random, cache_size=25.00%: count=17, mean=0.259639s, median=0.284995s, p95=0.517308s, stddev=0.133212s
+- policy=Random, cache_size=50.00%: count=17, mean=0.305578s, median=0.359880s, p95=0.602123s, stddev=0.157522s
+- policy=SLRU, cache_size=1.00%: count=17, mean=0.350028s, median=0.387030s, p95=0.561740s, stddev=0.122147s
+- policy=SLRU, cache_size=10.00%: count=17, mean=0.339469s, median=0.351409s, p95=0.534338s, stddev=0.117813s
+- policy=SLRU, cache_size=25.00%: count=17, mean=0.359329s, median=0.357092s, p95=0.607371s, stddev=0.133171s
+- policy=SLRU, cache_size=50.00%: count=17, mean=0.349774s, median=0.358573s, p95=0.577585s, stddev=0.123656s
+- policy=Sieve, cache_size=1.00%: count=17, mean=0.297286s, median=0.278691s, p95=0.507611s, stddev=0.110299s
+- policy=Sieve, cache_size=10.00%: count=17, mean=0.315993s, median=0.313217s, p95=0.545955s, stddev=0.120374s
+- policy=Sieve, cache_size=25.00%: count=17, mean=0.331471s, median=0.328151s, p95=0.555772s, stddev=0.126438s
+- policy=Sieve, cache_size=50.00%: count=17, mean=0.329259s, median=0.329081s, p95=0.556324s, stddev=0.120226s
+- policy=WTinyLFU, cache_size=1.00%: count=17, mean=17.716837s, median=0.690007s, p95=61.123739s, stddev=30.525367s
+- policy=WTinyLFU, cache_size=10.00%: count=17, mean=10.824420s, median=0.797777s, p95=54.825363s, stddev=21.726105s
+- policy=WTinyLFU, cache_size=25.00%: count=17, mean=3.995989s, median=0.727574s, p95=13.017089s, stddev=11.683094s
+- policy=WTinyLFU, cache_size=50.00%: count=17, mean=13.320327s, median=0.716360s, p95=79.658993s, stddev=35.678897s
+
+Eviction: Single Policy (avg across sizes per run)
+- policy=ARC: count=17, mean=0.352313s, median=0.362963s, p95=0.585670s, stddev=0.127888s
+- policy=LIRS: count=17, mean=0.709236s, median=0.744744s, p95=1.051174s, stddev=0.208969s
+- policy=Random: count=17, mean=0.246064s, median=0.263716s, p95=0.480237s, stddev=0.122321s
+- policy=SLRU: count=17, mean=0.349650s, median=0.360606s, p95=0.570258s, stddev=0.123122s
+- policy=Sieve: count=17, mean=0.318502s, median=0.312285s, p95=0.541416s, stddev=0.118680s
+- policy=WTinyLFU: count=17, mean=11.464393s, median=1.996298s, p95=45.081180s, stddev=17.190367s
+
+Eviction: Single Cache Size (avg across policies per run)
+- cache_size=1.00%: count=17, mean=3.282902s, median=0.452112s, p95=10.577166s, stddev=5.143995s
+- cache_size=10.00%: count=17, mean=2.127339s, median=0.468672s, p95=9.499811s, stddev=3.651750s
+- cache_size=25.00%: count=17, mean=0.997422s, median=0.477416s, p95=2.487495s, stddev=1.957414s
+- cache_size=50.00%: count=17, mean=2.552443s, median=0.481337s, p95=13.694444s, stddev=6.002498s
+
+=== Scope: shuffled ===
+records=17
+
+Metric Timings
+- cardinality_sec: count=17, mean=1.255873s, median=1.269322s, p95=1.324173s, stddev=0.049175s
+- eviction_avg_all_sec: count=17, mean=3.350882s, median=1.580238s, p95=8.672887s, stddev=3.343704s
+- miss_rates_total_sec: count=17, mean=80.442932s, median=37.961409s, p95=208.182424s, stddev=80.267834s
+- stack_distance_sec: count=17, mean=4.188039s, median=4.154795s, p95=4.697039s, stddev=0.291939s
+- total_measured_sec: count=17, mean=94.553609s, median=53.248110s, p95=222.671699s, stddev=80.653424s
+- working_set_0.1_sec: count=17, mean=2.069098s, median=2.060894s, p95=2.247052s, stddev=0.099192s
+- working_set_10_sec: count=17, mean=2.185314s, median=2.176204s, p95=2.340156s, stddev=0.091719s
+- working_set_1_sec: count=17, mean=2.115907s, median=2.110185s, p95=2.263402s, stddev=0.085230s
+- zipf_sec: count=17, mean=2.241102s, median=2.398084s, p95=2.961943s, stddev=0.529734s
+
+Eviction: Single Policy+Size
+- policy=ARC, cache_size=1.00%: count=17, mean=0.393483s, median=0.431494s, p95=0.584776s, stddev=0.130546s
+- policy=ARC, cache_size=10.00%: count=17, mean=0.382635s, median=0.425678s, p95=0.633132s, stddev=0.128865s
+- policy=ARC, cache_size=25.00%: count=17, mean=0.386293s, median=0.430159s, p95=0.610896s, stddev=0.130438s
+- policy=ARC, cache_size=50.00%: count=17, mean=0.398788s, median=0.437008s, p95=0.621784s, stddev=0.144127s
+- policy=LIRS, cache_size=1.00%: count=17, mean=0.861597s, median=0.951092s, p95=1.086639s, stddev=0.215622s
+- policy=LIRS, cache_size=10.00%: count=17, mean=0.828344s, median=0.891845s, p95=1.130417s, stddev=0.230990s
+- policy=LIRS, cache_size=25.00%: count=17, mean=0.782570s, median=0.804858s, p95=1.045666s, stddev=0.213307s
+- policy=LIRS, cache_size=50.00%: count=17, mean=0.751053s, median=0.767806s, p95=1.032867s, stddev=0.224090s
+- policy=Random, cache_size=1.00%: count=17, mean=0.238167s, median=0.236512s, p95=0.386231s, stddev=0.092670s
+- policy=Random, cache_size=10.00%: count=17, mean=0.226935s, median=0.234921s, p95=0.381852s, stddev=0.095725s
+- policy=Random, cache_size=25.00%: count=17, mean=0.292352s, median=0.342926s, p95=0.558884s, stddev=0.145006s
+- policy=Random, cache_size=50.00%: count=17, mean=0.349220s, median=0.427094s, p95=0.636580s, stddev=0.181770s
+- policy=SLRU, cache_size=1.00%: count=17, mean=0.377956s, median=0.417154s, p95=0.581827s, stddev=0.130198s
+- policy=SLRU, cache_size=10.00%: count=17, mean=0.369568s, median=0.390886s, p95=0.558025s, stddev=0.128895s
+- policy=SLRU, cache_size=25.00%: count=17, mean=0.383242s, median=0.402867s, p95=0.600761s, stddev=0.130890s
+- policy=SLRU, cache_size=50.00%: count=17, mean=0.394822s, median=0.400909s, p95=0.622093s, stddev=0.132209s
+- policy=Sieve, cache_size=1.00%: count=17, mean=0.312905s, median=0.303746s, p95=0.510677s, stddev=0.106522s
+- policy=Sieve, cache_size=10.00%: count=17, mean=0.338542s, median=0.326368s, p95=0.534536s, stddev=0.114688s
+- policy=Sieve, cache_size=25.00%: count=17, mean=0.358376s, median=0.385258s, p95=0.582195s, stddev=0.127878s
+- policy=Sieve, cache_size=50.00%: count=17, mean=0.352861s, median=0.390916s, p95=0.555687s, stddev=0.122397s
+- policy=WTinyLFU, cache_size=1.00%: count=17, mean=22.716301s, median=0.887322s, p95=72.051829s, stddev=33.461971s
+- policy=WTinyLFU, cache_size=10.00%: count=17, mean=11.950521s, median=1.122036s, p95=57.079528s, stddev=21.726579s
+- policy=WTinyLFU, cache_size=25.00%: count=17, mean=17.227205s, median=1.301295s, p95=59.346936s, stddev=24.774261s
+- policy=WTinyLFU, cache_size=50.00%: count=17, mean=19.747434s, median=1.583267s, p95=78.274242s, stddev=37.687652s
+
+Eviction: Single Policy (avg across sizes per run)
+- policy=ARC: count=17, mean=0.390300s, median=0.442391s, p95=0.612647s, stddev=0.132274s
+- policy=LIRS: count=17, mean=0.805891s, median=0.835172s, p95=1.067473s, stddev=0.219010s
+- policy=Random: count=17, mean=0.276669s, median=0.304142s, p95=0.495094s, stddev=0.125584s
+- policy=SLRU: count=17, mean=0.381397s, median=0.403720s, p95=0.590677s, stddev=0.129378s
+- policy=Sieve: count=17, mean=0.340671s, median=0.354242s, p95=0.545774s, stddev=0.117105s
+- policy=WTinyLFU: count=17, mean=17.910365s, median=5.906086s, p95=49.283986s, stddev=19.587452s
+
+Eviction: Single Cache Size (avg across policies per run)
+- cache_size=1.00%: count=17, mean=4.150068s, median=0.535777s, p95=12.432845s, stddev=5.639938s
+- cache_size=10.00%: count=17, mean=2.349424s, median=0.552191s, p95=9.929698s, stddev=3.658653s
+- cache_size=25.00%: count=17, mean=3.238340s, median=0.706668s, p95=10.336452s, stddev=4.164671s
+- cache_size=50.00%: count=17, mean=3.665696s, median=0.666430s, p95=13.534515s, stddev=6.345912s
+
+=== Scope: all ===
+records=34
+
+Metric Timings
+- cardinality_sec: count=34, mean=1.243955s, median=1.248728s, p95=1.323395s, stddev=0.050239s
+- eviction_avg_all_sec: count=34, mean=2.795454s, median=0.835124s, p95=9.101355s, stddev=3.193574s
+- miss_rates_total_sec: count=34, mean=67.108261s, median=20.043306s, p95=218.457698s, stddev=76.661456s
+- stack_distance_sec: count=34, mean=3.938964s, median=3.983784s, p95=4.540682s, stddev=0.399025s
+- total_measured_sec: count=34, mean=80.842093s, median=33.978781s, p95=232.561985s, stddev=76.945832s
+- working_set_0.1_sec: count=34, mean=2.064554s, median=2.062326s, p95=2.216697s, stddev=0.087852s
+- working_set_10_sec: count=34, mean=2.159637s, median=2.161431s, p95=2.307826s, stddev=0.083379s
+- working_set_1_sec: count=34, mean=2.098590s, median=2.107295s, p95=2.228198s, stddev=0.086223s
+- zipf_sec: count=34, mean=2.176542s, median=2.237202s, p95=2.926750s, stddev=0.497822s
+
+Eviction: Single Policy+Size
+- policy=ARC, cache_size=1.00%: count=34, mean=0.382264s, median=0.389015s, p95=0.608412s, stddev=0.137600s
+- policy=ARC, cache_size=10.00%: count=34, mean=0.364667s, median=0.362843s, p95=0.635562s, stddev=0.127328s
+- policy=ARC, cache_size=25.00%: count=34, mean=0.364295s, median=0.359855s, p95=0.615494s, stddev=0.127981s
+- policy=ARC, cache_size=50.00%: count=34, mean=0.373999s, median=0.381644s, p95=0.620281s, stddev=0.138428s
+- policy=LIRS, cache_size=1.00%: count=34, mean=0.804055s, median=0.789527s, p95=1.121817s, stddev=0.217220s
+- policy=LIRS, cache_size=10.00%: count=34, mean=0.781230s, median=0.808169s, p95=1.141782s, stddev=0.233801s
+- policy=LIRS, cache_size=25.00%: count=34, mean=0.739188s, median=0.747876s, p95=1.065592s, stddev=0.217221s
+- policy=LIRS, cache_size=50.00%: count=34, mean=0.705780s, median=0.728854s, p95=1.008027s, stddev=0.218490s
+- policy=Random, cache_size=1.00%: count=34, mean=0.226936s, median=0.213285s, p95=0.416746s, stddev=0.101840s
+- policy=Random, cache_size=10.00%: count=34, mean=0.215134s, median=0.204733s, p95=0.412786s, stddev=0.100036s
+- policy=Random, cache_size=25.00%: count=34, mean=0.275996s, median=0.293770s, p95=0.554450s, stddev=0.140191s
+- policy=Random, cache_size=50.00%: count=34, mean=0.327399s, median=0.363862s, p95=0.617150s, stddev=0.171472s
+- policy=SLRU, cache_size=1.00%: count=34, mean=0.363992s, median=0.387369s, p95=0.591893s, stddev=0.127007s
+- policy=SLRU, cache_size=10.00%: count=34, mean=0.354519s, median=0.363255s, p95=0.564788s, stddev=0.124392s
+- policy=SLRU, cache_size=25.00%: count=34, mean=0.371285s, median=0.370707s, p95=0.615177s, stddev=0.132576s
+- policy=SLRU, cache_size=50.00%: count=34, mean=0.372298s, median=0.381151s, p95=0.624019s, stddev=0.129970s
+- policy=Sieve, cache_size=1.00%: count=34, mean=0.305095s, median=0.298143s, p95=0.529067s, stddev=0.108708s
+- policy=Sieve, cache_size=10.00%: count=34, mean=0.327268s, median=0.324339s, p95=0.560326s, stddev=0.118105s
+- policy=Sieve, cache_size=25.00%: count=34, mean=0.344923s, median=0.338988s, p95=0.594951s, stddev=0.127870s
+- policy=Sieve, cache_size=50.00%: count=34, mean=0.341060s, median=0.342192s, p95=0.572813s, stddev=0.121889s
+- policy=WTinyLFU, cache_size=1.00%: count=34, mean=20.216569s, median=0.800530s, p95=78.525857s, stddev=32.124748s
+- policy=WTinyLFU, cache_size=10.00%: count=34, mean=11.387471s, median=0.882236s, p95=59.074979s, stddev=21.733636s
+- policy=WTinyLFU, cache_size=25.00%: count=34, mean=10.611597s, median=0.886026s, p95=56.930498s, stddev=20.466940s
+- policy=WTinyLFU, cache_size=50.00%: count=34, mean=16.533881s, median=0.898044s, p95=91.603703s, stddev=36.837458s
+
+Eviction: Single Policy (avg across sizes per run)
+- policy=ARC: count=34, mean=0.371306s, median=0.384714s, p95=0.623403s, stddev=0.131479s
+- policy=LIRS: count=34, mean=0.757563s, median=0.772586s, p95=1.074232s, stddev=0.219436s
+- policy=Random: count=34, mean=0.261366s, median=0.270058s, p95=0.507438s, stddev=0.124904s
+- policy=SLRU: count=34, mean=0.365524s, median=0.375564s, p95=0.597743s, stddev=0.127283s
+- policy=Sieve: count=34, mean=0.329587s, median=0.327683s, p95=0.562279s, stddev=0.118415s
+- policy=WTinyLFU: count=34, mean=14.687379s, median=3.119510s, p95=51.785228s, stddev=18.707649s
+
+Eviction: Single Cache Size (avg across policies per run)
+- cache_size=1.00%: count=34, mean=3.716485s, median=0.523267s, p95=13.528767s, stddev=5.415052s
+- cache_size=10.00%: count=34, mean=2.238381s, median=0.522101s, p95=10.265998s, stddev=3.656889s
+- cache_size=25.00%: count=34, mean=2.117881s, median=0.602890s, p95=9.886615s, stddev=3.441425s
+- cache_size=50.00%: count=34, mean=3.109069s, median=0.580140s, p95=15.709534s, stddev=6.201623s
+

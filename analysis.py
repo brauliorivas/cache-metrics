@@ -1,9 +1,12 @@
 import argparse
 import collections
 import dataclasses
+import datetime
+import json
 import pathlib
 import pprint
 import sys
+import time
 
 import libcachesim as lcs
 
@@ -15,6 +18,17 @@ from power_law import fit_powerlaw_from_reader
 from stack_distance import calculate_stack_distance
 from stats import five_number_summary
 from working_set import calculate_working_set
+
+WORKING_SET_SIZES = [0.1, 1, 10]
+EVICTION_POLICIES = [
+    (lcs.Sieve, "Sieve"),
+    (lcs.WTinyLFU, "WTinyLFU"),
+    (lcs.LIRS, "LIRS"),
+    (lcs.ARC, "ARC"),
+    (lcs.SLRU, "SLRU"),
+    (lcs.Random, "Random"),
+]
+CACHE_SIZES = [0.01, 0.1, 0.25, 0.5]
 
 
 @dataclasses.dataclass
@@ -59,6 +73,14 @@ class AnalysisResult:
     miss_ratios: list[MissRatioResult] = dataclasses.field(default_factory=list)
 
 
+def new_reader(file: str) -> lcs.TraceReader:
+    return lcs.TraceReader(
+        file,
+        lcs.TraceType.ORACLE_GENERAL_TRACE,
+        lcs.ReaderInitParam(ignore_obj_size=False),
+    )
+
+
 def analysis(
     file,
     stack_distance=False,
@@ -71,14 +93,9 @@ def analysis(
     analysis_results: AnalysisResult = AnalysisResult()
     analysis_results.working_set = []
     analysis_results.miss_ratios = []
-    reader = lcs.TraceReader(
-        file,
-        lcs.TraceType.ORACLE_GENERAL_TRACE,
-        lcs.ReaderInitParam(ignore_obj_size=False),
-    )
 
     if stack_distance:
-        sd_results = calculate_stack_distance(reader)
+        sd_results = calculate_stack_distance(new_reader(file))
         summary = five_number_summary(sd_results)
         analysis_results.stack_distance.summary = summary
         cdf_path = plot_cdf(
@@ -97,11 +114,10 @@ def analysis(
         analysis_results.stack_distance.plot.boxplot_path = boxplot_path
 
     if working_set:
-        working_set_sizes = [0.1, 1, 10]
-        for ws_size in working_set_sizes:
+        for ws_size in WORKING_SET_SIZES:
             results = WorkingSetResult()
             results.ws_size = ws_size
-            ws_results = calculate_working_set(reader, ws_size)
+            ws_results = calculate_working_set(new_reader(file), ws_size)
             summary = five_number_summary(ws_results)
             results.summary = summary
             cdf_path = plot_cdf(
@@ -121,29 +137,20 @@ def analysis(
             analysis_results.working_set.append(results)
 
     if zipf:
-        powerlaw_result = fit_powerlaw_from_reader(reader, discrete=True, verbose=True)
+        powerlaw_result = fit_powerlaw_from_reader(
+            new_reader(file), discrete=True, verbose=True
+        )
         analysis_results.zipf = powerlaw_result.power_law.alpha
 
     if cardinality:
-        cardinality = calculate_cardinality(reader)
-        analysis_results.cardinality = cardinality
+        analysis_results.cardinality = calculate_cardinality(new_reader(file))
 
     if rate:
-        eviction_policies = [
-            (lcs.Sieve, "Sieve"),
-            (lcs.WTinyLFU, "WTinyLFU"),
-            (lcs.LIRS, "LIRS"),
-            (lcs.ARC, "ARC"),
-            (lcs.SLRU, "SLRU"),
-            (lcs.Random, "Random"),
-        ]
-        cache_sizes = [0.01, 0.1, 0.25, 0.5]
-
-        for policy_t in eviction_policies:
-            for cache_size in cache_sizes:
+        for policy_t in EVICTION_POLICIES:
+            for cache_size in CACHE_SIZES:
                 policy, policy_name = policy_t
                 req_miss_ratio, byte_miss_ratio = calculate_miss_ratio(
-                    policy, cache_size, reader
+                    policy, cache_size, new_reader(file)
                 )
                 miss_ratio_result = MissRatioResult()
                 miss_ratio_result.eviction_policy_name = policy_name
@@ -154,6 +161,126 @@ def analysis(
                 analysis_results.miss_ratios.append(miss_ratio_result)
 
     return analysis_results
+
+
+def append_measurement_record(path: pathlib.Path, record: dict):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "a", encoding="utf-8") as f:
+        f.write(json.dumps(record, separators=(",", ":")))
+        f.write("\n")
+
+
+def _now_utc_iso() -> str:
+    return datetime.datetime.now(datetime.UTC).isoformat().replace("+00:00", "Z")
+
+
+def _time_call(fn):
+    start = time.perf_counter()
+    result = fn()
+    elapsed = time.perf_counter() - start
+    return result, elapsed
+
+
+def measure_analysis(
+    file: str,
+    role: str,
+    trace_name: str,
+    stack_distance=False,
+    working_set=False,
+    zipf=False,
+    rate=False,
+    cardinality=False,
+) -> dict:
+    run_start = time.perf_counter()
+
+    metric_times: dict[str, float] = {}
+    eviction_by_pair: list[dict] = []
+    eviction_by_policy = collections.defaultdict(list)
+    eviction_by_size = collections.defaultdict(list)
+
+    if stack_distance:
+        _, elapsed = _time_call(lambda: calculate_stack_distance(new_reader(file)))
+        metric_times["stack_distance_sec"] = elapsed
+
+    if working_set:
+        for ws_size in WORKING_SET_SIZES:
+            _, elapsed = _time_call(
+                lambda ws_size=ws_size: calculate_working_set(new_reader(file), ws_size)
+            )
+            metric_times[f"working_set_{ws_size}_sec"] = elapsed
+
+    if zipf:
+        _, elapsed = _time_call(
+            lambda: fit_powerlaw_from_reader(new_reader(file), discrete=True, verbose=False)
+        )
+        metric_times["zipf_sec"] = elapsed
+
+    if cardinality:
+        _, elapsed = _time_call(lambda: calculate_cardinality(new_reader(file)))
+        metric_times["cardinality_sec"] = elapsed
+
+    if rate:
+        ev_start = time.perf_counter()
+        for policy_cls, policy_name in EVICTION_POLICIES:
+            for cache_size in CACHE_SIZES:
+                _, elapsed = _time_call(
+                    lambda policy_cls=policy_cls, cache_size=cache_size: calculate_miss_ratio(
+                        policy_cls, cache_size, new_reader(file)
+                    )
+                )
+                eviction_by_pair.append(
+                    {
+                        "policy": policy_name,
+                        "cache_size": cache_size,
+                        "time_sec": elapsed,
+                    }
+                )
+                eviction_by_policy[policy_name].append(elapsed)
+                eviction_by_size[cache_size].append(elapsed)
+
+        metric_times["miss_rates_total_sec"] = time.perf_counter() - ev_start
+
+    total_elapsed = time.perf_counter() - run_start
+
+    eviction_avg_by_policy = []
+    eviction_avg_by_size = []
+
+    for policy_name in sorted(eviction_by_policy):
+        samples = eviction_by_policy[policy_name]
+        eviction_avg_by_policy.append(
+            {
+                "policy": policy_name,
+                "avg_time_sec": sum(samples) / len(samples),
+            }
+        )
+
+    for cache_size in sorted(eviction_by_size):
+        samples = eviction_by_size[cache_size]
+        eviction_avg_by_size.append(
+            {
+                "cache_size": cache_size,
+                "avg_time_sec": sum(samples) / len(samples),
+            }
+        )
+
+    eviction_avg_all = 0.0
+    if eviction_by_pair:
+        eviction_avg_all = sum(x["time_sec"] for x in eviction_by_pair) / len(eviction_by_pair)
+
+    return {
+        "timestamp_utc": _now_utc_iso(),
+        "trace_name": trace_name,
+        "trace_path": str(file),
+        "role": role,
+        "timings_sec": metric_times,
+        "eviction": {
+            "by_policy_size": eviction_by_pair,
+            "avg_by_policy": eviction_avg_by_policy,
+            "avg_by_cache_size": eviction_avg_by_size,
+            "avg_all_sec": eviction_avg_all,
+        },
+        "total_measured_sec": total_elapsed,
+    }
 
 
 def create_report(
@@ -374,7 +501,7 @@ def comparison_report(
 
 def main():
     parser = argparse.ArgumentParser(
-        usage="%(prog)s -f NORMAL_TRACE [-F SHUFFLED_TRACE] [-o output_path] [-t TRACE_NAME] [-s] [-w] [-z] [-r] [-c] [-h]"
+        usage="%(prog)s -f NORMAL_TRACE [-F SHUFFLED_TRACE] [-o output_path] [-t TRACE_NAME] [-s] [-w] [-z] [-r] [-c] [-m] [--measure-output FILE] [-h]"
     )
 
     parser.add_argument(
@@ -434,6 +561,18 @@ def main():
         action="store_true",
         help="Calculate the cardinality of unique objects in the trace using HyperLogLog",
     )
+    parser.add_argument(
+        "-m",
+        "--measure",
+        action="store_true",
+        help="Dry analysis timing mode: measures enabled metric runtimes and appends JSONL records",
+    )
+    parser.add_argument(
+        "--measure-output",
+        type=pathlib.Path,
+        default=pathlib.Path("traces/measurement_runs.jsonl"),
+        help="Path to append measurement records in JSON Lines format",
+    )
 
     args = parser.parse_args()
 
@@ -449,6 +588,35 @@ def main():
     zipf = args.zipf
     rate = args.rate
     cardinality = args.cardinality
+
+    if args.measure:
+        normal_measurement = measure_analysis(
+            trace,
+            role="normal",
+            trace_name=trace_name,
+            stack_distance=stack_distance,
+            working_set=working_set,
+            zipf=zipf,
+            rate=rate,
+            cardinality=cardinality,
+        )
+        append_measurement_record(args.measure_output, normal_measurement)
+        pprint.pprint(normal_measurement)
+
+        if shuffled_trace:
+            shuffled_measurement = measure_analysis(
+                shuffled_trace,
+                role="shuffled",
+                trace_name=trace_name,
+                stack_distance=stack_distance,
+                working_set=working_set,
+                zipf=zipf,
+                rate=rate,
+                cardinality=cardinality,
+            )
+            append_measurement_record(args.measure_output, shuffled_measurement)
+            pprint.pprint(shuffled_measurement)
+        return
 
     normal_path = output / "normal"
     normal_path.mkdir(parents=True, exist_ok=True)

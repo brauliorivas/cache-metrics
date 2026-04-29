@@ -88,6 +88,8 @@ Options:
   -z, --zipf                    Fit a power law distribution to estimate Zipf coefficient
   -r, --rate                    Calculate miss ratios for eviction policies
   -c, --cardinality             Calculate cardinality using HyperLogLog
+  -m, --measure                 Dry timing mode (no plots/reports); appends JSONL timing records
+  --measure-output FILE         Measurement JSONL output path (default: traces/measurement_runs.jsonl)
   -h, --help                    Show help message
 ```
 
@@ -102,6 +104,26 @@ python analysis.py -f normal.zst -F shuffled.zst -s -w -z -r -c -o comparison/ -
 
 # Calculate only stack distance and working set
 python analysis.py -f trace.zst -s -w -o results/
+
+# Measure runtime of enabled metrics for normal+shuffled traces
+python analysis.py -f normal.zst -F shuffled.zst -s -w -z -r -c -m \
+  --measure-output traces/measurement_runs.jsonl
+```
+
+### 2.1 Measurement Summary Aggregation (`measure_stats.py`)
+
+Aggregates timing records written by `analysis.py -m` and computes summary stats (`count`, `mean`, `median`, `p95`, `stddev`) for:
+
+- Each metric timing (stack distance, working sets per size, zipf, cardinality, miss-rate total, total measured)
+- Eviction timing by single `(policy, cache size)`
+- Eviction timing by single policy (average across all sizes)
+- Eviction timing by single cache size (average across all policies)
+- Scope partitions: `normal`, `shuffled`, and `all`
+
+```bash
+python measure_stats.py \
+  -i traces/measurement_runs.jsonl \
+  -o traces/measurement_summary.txt
 ```
 
 **Output Structure:**
