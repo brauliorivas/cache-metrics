@@ -377,6 +377,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "pytest" },
     { name = "python-lsp-server" },
     { name = "ruff" },
 ]
@@ -515,6 +516,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "pytest", specifier = ">=9.0.3" },
     { name = "python-lsp-server", specifier = ">=1.14.0" },
     { name = "ruff", specifier = ">=0.15.10" },
 ]

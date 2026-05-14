@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
   uint64_t records = 0;
   trace_type_e trace_format = ORACLE_GENERAL_TRACE;
 
-  while ((opt = getopt_long(argc, argv, "hf:F:pr:s", long_options, NULL)) != -1) {
+  while ((opt = getopt_long(argc, argv, "hf:F:pr:sv", long_options, NULL)) != -1) {
     switch (opt) {
     case 'h':
       fprintf(stdout, "Usage: %s -f FILE [F TRACE_FORMAT] [-r RECORDS] [-p] [-s] [-v] [-h]\n",
@@ -92,12 +92,12 @@ int main(int argc, char *argv[]) {
     request_t *req = new_request();
     uint64_t c = 0;
     while (read_one_req(reader, req) == 0) {
-      c++;
-      if (c % 1000000 == 0 && verbose) {
+      if (c % 1000000 == 0) {
         printf("obj_id=%lu obj_size=%lu clock=%ld next=%ld : c=%lu\n",
                req->obj_id, req->obj_size, req->clock_time,
                req->next_access_vtime, c);
       }
+      c++;
     }
     if (verbose) {
       printf("There are %lu records in this trace\n", c);
